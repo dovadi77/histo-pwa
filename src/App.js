@@ -4,7 +4,7 @@ import LoginForm from "./components/LoginForm";
 function App(){
   const adminUser = {
     email: "kekeke@admin.com",
-    password: "kekeeke"
+    password: "kekekeyiewae"
   }
 
   const [user, setUser] = useState({name: "", email:""});
