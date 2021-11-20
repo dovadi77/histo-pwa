@@ -1,47 +1,28 @@
-import React, { useState } from "react";
-import LoginForm from "./components/LoginForm";
+import React, { useState, useEffect } from "react";
+import Board from "./Board";
+import { updateURLParameter } from "./helpers"
 
-function App(){
-  const adminUser = {
-    email: "kekeke@admin.com",
-    password: "kekekeyiewae"
-  }
+function App() {
+  const [imgUrl, setImgUrl] = useState("")
 
-  const [user, setUser] = useState({name: "", email:""});
-  const [error, setError] = useState("");
-
-  const Login = (details) => {
-    console.log(details);
-
-    if (details.email == adminUser.email && details.password == adminUser.password){
-    console.log("Logged In");
-      setUser({
-        name: details.name,
-        email: details.email
-      })
-  }
-    else {
-    console.log("Details do not match!");
-      setError("Details do not match!");
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search)
+    if (urlParams.has("img")) {
+      setImgUrl(urlParams.get("img"))
     }
+  }, [])
+
+  const handleImageChange = (e) => {
+    setImgUrl(e.target.value)
+    window.history.replaceState("", "", updateURLParameter(window.location.href, "img", e.target.value))
   }
 
-  const Logout = () => {
-    console.log("Logout")
-    setUser({name: "", email: "" });
-  }
-  
-  return(
+  return (
     <div className="App">
-      {(user.email != "") ?(
-        <div className = "welcome">
-          <h2> Welcome, <span>{user.name}</span></h2>
-          <button onClick={Logout}> Logout </button>
+      <h1>React sliding puzzle</h1>
+      <Board imgUrl={imgUrl} />
+      <input value={imgUrl} onChange={handleImageChange} />
     </div>
-  ) : (
-    <LoginForm Login={Login} error={error}/>
-  )}
-  </div>
   );
 }
 
