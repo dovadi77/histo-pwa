@@ -1,6 +1,5 @@
 import { TILE_COUNT, GRID_SIZE } from "./constants"
 
-// Credits to https://codepen.io/unindented/pen/QNWdRQ
 export function isSolvable(tiles) {
   let product = 1;
   for (let i = 1, l = TILE_COUNT - 1; i <= l; i++) {
