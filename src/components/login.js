@@ -29,6 +29,7 @@ const Login=()=>{
                 label="Ingat saya" 
             /> */}
             <Button type='submit' color='primary' fullWidth variant='contained' style={btnStyle}>Masuk</Button>
+            <Grid align='center'>
             <Typography>
                     <Link href="#">
                         {'Lupa kata sandi?'}
@@ -36,9 +37,10 @@ const Login=()=>{
             </Typography>
             <Typography> Belum memiliki akun?
                     <Link href="#">
-                        {'Register'}
+                        {'  Register'}
                     </Link>
             </Typography>
+            </Grid>
             </Paper>
         </Grid>
     )
