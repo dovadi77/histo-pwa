@@ -7,7 +7,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 const Login=()=>{
 
     //MARK: UI COMPONENTS
-    const paperStyle={padding: 20, height: '60vh', width:300, margin:"150px auto"}
+    const paperStyle={padding: 20, height: '44vh', width:300, margin:"200px auto"}
     const avatarStyle={backgroundColor:'#1bbd7e'}
     const txtField={margin: '8px 0'}
     const btnStyle={ margin: '30px 0'}
@@ -17,7 +17,7 @@ const Login=()=>{
             <Paper elevation={10} style={paperStyle}>
                 <Grid align='center'>
                 <Avatar style={avatarStyle}><LockOutlinedIcon/></Avatar>
-                <h2>Sign In</h2>
+                <h2>Masuk</h2>
                 </Grid>
                 <TextField label='Email' placeholder='Masukkan email' style={txtField} fullWidth required/>
                 <TextField label='Kata Sandi' placeholder='Masukkan kata sandi' type='password' fullWidth required />
@@ -28,7 +28,7 @@ const Login=()=>{
                 } 
                 label="Ingat saya" 
             /> */}
-            <Button type='submit' color='primary' fullWidth variant='contained' style={btnStyle}>Login</Button>
+            <Button type='submit' color='primary' fullWidth variant='contained' style={btnStyle}>Masuk</Button>
             <Typography>
                     <Link href="#">
                         {'Lupa kata sandi?'}
