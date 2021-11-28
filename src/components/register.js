@@ -4,16 +4,17 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
-const Register=()=> {
+function Register() {
 
     //MARK: UI COMPONENTS
-    const paperStyle = { padding: 20, height: '44vh', width: 300, margin: "200px auto" }
+    const paperStyle = { padding: 20, height: '55vh', width: 300, margin: "150px auto" }
     const avatarStyle = { backgroundColor: '#1bbd7e' }
     const txtField = { margin: '8px 0' }
     const btnStyle = { margin: '10px 0' }
     const chckbox = { margin: '15px 0px' }
 
     return (
+    <div>
         <Grid>
             <Paper elevation={10} style={paperStyle}>
                 <Grid align='center'>
@@ -38,14 +39,15 @@ const Register=()=> {
                         </Link>
                     </Typography> */}
                     <Typography> Sudah memiliki akun?
-                        <Link href="#">
+                        <Link href="/login">
                             {'  Masuk'}
                         </Link>
                     </Typography>
                 </Grid>
             </Paper>
         </Grid>
-    )
+        </div>
+    );
 }
 
-export default Register
+export default Register;
