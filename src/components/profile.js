@@ -7,8 +7,6 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 function Profile() {
     //MARK: UI COMPONENTS
     const paperStyle = { padding: 20, height: '100vh', width: 355, margin: "0 auto" }
-    const avatarStyle = { backgroundColor: '#1bbd7e' }
-    const txtField = { margin: '8px 0' }
 
     return <div> 
         <Grid>
@@ -16,20 +14,10 @@ function Profile() {
             <Grid align='center'>
                 <h2>Halaman Profil</h2>
             </Grid>
-            <TextField label='Email' placeholder='Masukkan email' style={txtField} fullWidth required />
-            <TextField label='Kata Sandi' placeholder='Masukkan kata sandi' type='password' fullWidth required />
-            <Grid align='center'>
-                <Typography>
-                    <Link href="#">
-                        {'Lupa kata sandi?'}
-                    </Link>
-                </Typography>
-                <Typography> Belum memiliki akun?
-                    <Link href="/register">
-                        {'  Register'}
-                    </Link>
-                </Typography>
-            </Grid>
+            <label> Nama </label>
+            <TextField placeholder='Pieter Yonathan' fullWidth />
+            <label> Email </label>
+            <TextField placeholder='pieteryonathan@gmail.com' fullWidth  />
         </Paper>
     </Grid>
     </div>
