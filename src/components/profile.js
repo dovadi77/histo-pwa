@@ -6,7 +6,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 
 function Profile() {
     //MARK: UI COMPONENTS
-    const paperStyle = { padding: 20, height: '100vh', width: 355, margin: "0 auto" }
+    const paperStyle = { padding: 20, height: '95.5vh', width: 355, margin: "0 auto" }
 
     return <div> 
         <Grid>
