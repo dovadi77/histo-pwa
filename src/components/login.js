@@ -2,8 +2,7 @@ import { Avatar, Button, Grid, Paper, TextField, Typography, Link } from "@mater
 import { useNavigate } from 'react-router-dom';
 import React from "react";
 import LockOutlinedIcon  from "@material-ui/icons/LockOutlined";
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import Checkbox from '@material-ui/core/Checkbox';
+
 
 function Login() {
 
@@ -24,20 +23,10 @@ function Login() {
                 </Grid>
                 <TextField label='Email' placeholder='Masukkan email' style={txtField} fullWidth required/>
                 <TextField label='Kata Sandi' placeholder='Masukkan kata sandi' type='password' fullWidth required />
-                {/* <FormControlLabel control={<Checkbox 
-                name='checked8'
-                color='primary'
-                />
-                } 
-                label="Ingat saya" 
-            /> */}
+             
             <Button onClick={() => {navigate('/profile')}} type='submit' color='primary' fullWidth variant='contained' style={btnStyle}>Masuk</Button>
             <Grid align='center'>
-            <Typography>
-                    <Link href="#">
-                        {'Lupa kata sandi?'}
-                    </Link>
-            </Typography>
+
             <Typography> Belum memiliki akun?
                     <Link href="/register">
                         {'  Register'}

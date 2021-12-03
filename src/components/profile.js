@@ -1,12 +1,25 @@
-import { Avatar, Button, Grid, Paper, TextField, Typography, Link } from "@material-ui/core";
+import {Grid, Paper, TextField} from "@material-ui/core";
 import React from "react";
-import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-// import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import Checkbox from '@material-ui/core/Checkbox';
+import { makeStyles } from "@material-ui/core";
+import { BottomNavigation, BottomNavigationAction } from "@material-ui/core";
+import { AccountCircle, MenuBook, SportsEsports } from "@material-ui/icons";
+
+const useStyles = makeStyles({
+    root: {
+        width: 400,
+        backgroundColor: "#E0E0E0",
+    }
+})
 
 function Profile() {
-    //MARK: UI COMPONENTS
-    const paperStyle = { padding: 20, height: '95.5vh', width: 355, margin: "0 auto" }
+  
+    const paperStyle = { padding: 20, height: '88vh', width: 355, margin: "0 auto" }
+
+    const classes = useStyles()
+    const [value, setValue] = React.useState(0)
+    const handlechange = (event, newValue) => {
+        setValue(newValue)
+    }
 
     return <div> 
         <Grid>
@@ -20,6 +33,17 @@ function Profile() {
             <TextField placeholder='pieteryonathan@gmail.com' fullWidth  />
         </Paper>
     </Grid>
+
+        <BottomNavigation
+            className={classes.root}
+            showLabels
+            value={value}
+            onChange={(event, newValue) => handlechange(event, newValue)}
+        >
+            <BottomNavigationAction label='Profil' icon={<AccountCircle />} />
+            <BottomNavigationAction label='Materi' icon={<MenuBook />} />
+            <BottomNavigationAction label='Permainan' icon={<SportsEsports />} />
+        </BottomNavigation>
     </div>
 }
 
