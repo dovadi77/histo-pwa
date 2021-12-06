@@ -1,9 +1,28 @@
-import React, { useState, useEffect } from "react";
-import {Button, Grid, Paper, TextField } from "@material-ui/core";
+import React from "react";
+import {Button, Grid, Paper} from "@material-ui/core";
 import SpeechRecognition, {useSpeechRecognition} from "react-speech-recognition";
- 
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@material-ui/core";
+
 function Speech_To_Text() {
-    const { transcript, resetTranscript } = useSpeechRecognition()
+
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+
+    const commands = [
+        {
+            command: 'Kami bangsa Indonesia dengan ini menyatakan kemerdekaan Indonesia hal-hal yang mengenai pemindahan kekuasaan dan lain-lain diselenggarakan dengan cara seksama dan dalam tempo yang sesingkat-singkatnya',
+        callback: () => handleClickOpen()
+    }
+    ]
+    const { transcript, resetTranscript } = useSpeechRecognition({commands})
 
     if (!SpeechRecognition.browserSupportsSpeechRecognition()){
     return null
@@ -16,6 +35,27 @@ function Speech_To_Text() {
     const btnStyleReset = { padding: 20, height: '7vh', width: 170, margin: "20px 10px" }
     return (
         <div>
+            <Dialog
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">
+                    {"MERDEKA"}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Pada hari Proklamasi Kemerdekaan yakni hari Jumat tanggal 17 Agustus 1945 pukul 10.00 WIB., 
+                        teks ini dibacakan oleh Soekarno didampingi Mohammad Hatta di serambi depan rumah Soekarno yang terletak di 
+                        Jl. Pegangsaan Timur Nomor 56, Jakarta (sekarang Jl. Proklamasi Nomor 5, Jakarta Pusat).
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose}>Lanjutkan</Button>
+                </DialogActions>
+            </Dialog>
+
             <Grid>
                 <Paper elevation={10} style={paperStyle1}>
                     <Grid align='center'>
@@ -44,6 +84,7 @@ function Speech_To_Text() {
                     color='primary'
                     variant='contained'
                     style={btnStyleReset}>Reset</Button>
+    
             </Grid>
         </div>
     )

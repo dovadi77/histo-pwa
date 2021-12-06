@@ -17,7 +17,6 @@ function App() {
         <Route path="/profile" element={ <Profile />} /> 
         <Route path="/edit_profile" element={<Edit_Profile />} />
         <Route path="/game" element={<Speech_To_Text />} />
-
       </Routes>
     </Router>
   );
