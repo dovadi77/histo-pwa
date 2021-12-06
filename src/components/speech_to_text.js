@@ -11,9 +11,9 @@ function Speech_To_Text() {
 
     const paperStyle1 = { padding: 20, height: '40vh', width: 300, margin: "20px auto" }
     const paperStyle2 = { padding: 20, height: '30vh', width: 300, margin: "30px auto" }
-    const btnStyleStart = { padding: 20, height: '7vh', width: 170, margin: "20px 60px"}
-    const btnStyleStop = { padding: 20, height: '7vh', width: 170, margin: "20px 120px" }
-    const btnStyleReset = { padding: 20, height: '7vh', width: 170, margin: "20px 70px" }
+    const btnStyleStart = { padding: 20, height: '7vh', width: 170, margin: "20px 10px"}
+    const btnStyleStop = { padding: 20, height: '7vh', width: 170, margin: "20px 10px" }
+    const btnStyleReset = { padding: 20, height: '7vh', width: 170, margin: "20px 10px" }
     return (
         <div>
             <Grid>
@@ -29,7 +29,7 @@ function Speech_To_Text() {
                     </Grid>
                     <p>{transcript}</p>
                 </Paper>
-                <Button onClick={SpeechRecognition.startListening({continuous: true})}
+                <Button onClick={() => SpeechRecognition.startListening({continuous: true, language: 'id'})}
                 type='submit' 
                 color='primary' 
                 variant='contained' 
