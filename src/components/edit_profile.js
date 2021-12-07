@@ -6,6 +6,7 @@ function Edit_Profile() {
 
     const navigate = useNavigate();
 
+    //MARK: Component UI
     const paperStyle = { padding: 20, height: '95vh', width: 355, margin: "0 auto" }
     const txtField = { margin: '15px 0' }
     const btnStyle = { margin: '30px 0' }

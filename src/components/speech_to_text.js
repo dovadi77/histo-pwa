@@ -2,11 +2,13 @@ import React from "react";
 import {Button, Grid, Paper} from "@material-ui/core";
 import SpeechRecognition, {useSpeechRecognition} from "react-speech-recognition";
 import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@material-ui/core";
+import Stack from '@mui/material/Stack';
 
 function Speech_To_Text() {
 
     const [open, setOpen] = React.useState(false);
 
+    //MARK: -Show or Hidden  PopUp
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -15,24 +17,27 @@ function Speech_To_Text() {
         setOpen(false);
     };
 
-
+    //MARK: -Command Speech Recognition
     const commands = [
         {
             command: 'Kami bangsa Indonesia dengan ini menyatakan kemerdekaan Indonesia hal-hal yang mengenai pemindahan kekuasaan dan lain-lain diselenggarakan dengan cara seksama dan dalam tempo yang sesingkat-singkatnya',
         callback: () => handleClickOpen()
     }
     ]
+
     const { transcript, resetTranscript } = useSpeechRecognition({commands})
 
     if (!SpeechRecognition.browserSupportsSpeechRecognition()){
     return null
     }
 
-    const paperStyle1 = { padding: 20, height: '40vh', width: 300, margin: "20px auto" }
+    //MARK: -Component UI
+    const paperStyle1 = { padding: 20, height: '30vh', width: 300, margin: "20px auto" }
     const paperStyle2 = { padding: 20, height: '30vh', width: 300, margin: "30px auto" }
-    const btnStyleStart = { padding: 20, height: '7vh', width: 170, margin: "20px 10px"}
-    const btnStyleStop = { padding: 20, height: '7vh', width: 170, margin: "20px 10px" }
-    const btnStyleReset = { padding: 20, height: '7vh', width: 170, margin: "20px 10px" }
+    const btnStyleStart = { padding: 20, height: '7vh', width: 170, margin: "20px 15px"}
+    const btnStyleStop = { padding: 20, height: '7vh', width: 170, margin: "20px auto" }
+    const btnStyleReset = { padding: 20, height: '2vh', width: 20, margin: "20px 50px" }
+
     return (
         <div>
             <Dialog
@@ -65,10 +70,18 @@ function Speech_To_Text() {
                 </Paper>
                 <Paper elevation={10} style={paperStyle2}>
                     <Grid align='center'>
-                        <h2>Hasil Input</h2>
+                        <Stack spacing={1} direction="row">
+                            <h2>Hasil Input</h2>
+                        <Button onClick={resetTranscript}
+                            type='submit'
+                            color='primary'
+                            variant='contained'
+                            style={btnStyleReset}>Reset</Button>
+                        </Stack>
                     </Grid>
                     <p>{transcript}</p>
                 </Paper>
+                <Stack spacing={1} direction="row">
                 <Button onClick={() => SpeechRecognition.startListening({continuous: true, language: 'id'})}
                 type='submit' 
                 color='primary' 
@@ -79,12 +92,7 @@ function Speech_To_Text() {
                     color='primary'
                     variant='contained'
                     style={btnStyleStop}>Stop</Button>
-                <Button onClick={resetTranscript}
-                    type='submit'
-                    color='primary'
-                    variant='contained'
-                    style={btnStyleReset}>Reset</Button>
-    
+                </Stack>
             </Grid>
         </div>
     )
