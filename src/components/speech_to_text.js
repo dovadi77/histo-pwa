@@ -32,7 +32,7 @@ function Speech_To_Text() {
     }
 
     //MARK: -Component UI
-    const paperStyle1 = { padding: 20, height: '30vh', width: 300, margin: "20px auto" }
+    const paperStyle1 = { padding: 20, height: '40vh', width: 300, margin: "20px auto" }
     const paperStyle2 = { padding: 20, height: '30vh', width: 300, margin: "30px auto" }
     const btnStyleStart = { padding: 20, height: '7vh', width: 170, margin: "20px 15px"}
     const btnStyleStop = { padding: 20, height: '7vh', width: 170, margin: "20px auto" }
