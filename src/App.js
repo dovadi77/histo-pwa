@@ -6,6 +6,7 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Profile from './components/profile';
 import Edit_Profile from './components/edit_profile';
 import Speech_To_Text from './components/speech_to_text';
+import Play_Quiz from './components/play_quiz';
 
 function App() {
 
@@ -17,6 +18,7 @@ function App() {
         <Route path="/profile" element={ <Profile />} /> 
         <Route path="/edit_profile" element={<Edit_Profile />} />
         <Route path="/game" element={<Speech_To_Text />} />
+        <Route path="/kuis" element={<Play_Quiz />} />
       </Routes>
     </Router>
   );
