@@ -38,17 +38,7 @@ const LearnTab = () => {
       title: "Ekonomi",
       image:
         "https://koinworks.com/wp-content/uploads/2020/10/resesi-ekonomi-1024x576.jpg",
-    },
-    {
-      title: "Matematika",
-      image:
-        "https://d1bpj0tv6vfxyp.cloudfront.net/fobiapadamatematikabenarkahbisaterjadihalodoc.jpg",
-    },
-    {
-      title: "Biologi",
-      image:
-        "https://i2.wp.com/www.bladjar.com/wp-content/uploads/2021/07/Inilah-25-Cabang-Biologi-yang-Perlu-Diketahui.jpg",
-    },
+    }
   ];
 
   const ItemLearn = (item) => {
