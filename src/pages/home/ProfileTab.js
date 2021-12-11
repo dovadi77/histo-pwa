@@ -64,7 +64,7 @@ const ProfileTab = () => {
                 <Typography variant="h6" component="div">
                   Nama
                 </Typography>
-                <Typography variant="body">Marco Melandri</Typography>
+                <Typography variant="body">PoponKT</Typography>
                 <Typography
                   variant="h6"
                   component="div"
@@ -72,7 +72,7 @@ const ProfileTab = () => {
                 >
                   Email
                 </Typography>
-                <Typography variant="body">marco@gmail.com</Typography>
+                <Typography variant="body">kevdam@gmail.com</Typography>
               </Box>
             </Typography>
           </Paper>

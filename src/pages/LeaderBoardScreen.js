@@ -41,10 +41,10 @@ const createData = (name, calories, fat, carbs, protein) => {
 };
 
 const rows = [
-  createData("1", 159, "Budi"),
-  createData("2", 237, "Hendro"),
+  createData("1", 362, "Budi"),
+  createData("2", 337, "Hendro"),
   createData("3", 262, "Yuda"),
-  createData("4", 262, "Yuda"),
+  createData("4", 262, "Yudi"),
   createData("5", 262, "Yuda"),
   createData("6", 262, "Yuda"),
   createData("7", 262, "Yuda"),
