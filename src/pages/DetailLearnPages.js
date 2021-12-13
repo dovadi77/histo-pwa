@@ -1,4 +1,4 @@
-import { AppBar, IconButton, Toolbar, Typography } from "@mui/material";
+import { AppBar, IconButton, Toolbar, Typography, Button } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import { useLocation, useNavigate } from "react-router";
@@ -14,10 +14,15 @@ const useStyles = makeStyles({
   },
 });
 
+
+
 const DetailLearnPages = () => {
   const classes = useStyles();
   const navigate = useNavigate();
   const { state } = useLocation();
+  const handleBtnPlay = () => {
+    navigate("/game-voice");
+  };
 
   return (
     <Box className={classes.container}>
@@ -51,6 +56,13 @@ const DetailLearnPages = () => {
         >
           Saya suka makan nasi
         </Typography>
+        <Button
+          variant="contained"
+          sx={{ marginTop: theme.spacing(10) }}
+          onClick={() => handleBtnPlay()}
+        >
+          Masuk
+        </Button>
       </Box>
     </Box>
   );

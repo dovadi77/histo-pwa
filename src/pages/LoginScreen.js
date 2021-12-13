@@ -32,6 +32,7 @@ const LoginScreen = () => {
   const handleBtnRegister = () => {
     navigate("/register");
   };
+  
   return (
     <Box className={classes.container}>
       <Box>
