@@ -36,7 +36,7 @@ const ProfileTab = () => {
   const classes = useStyles();
   const navigate = useNavigate();
   const handleBtnEdit = () => {
-    navigate("/");
+    navigate("/edit-profile");
   };
 
   return (
@@ -86,7 +86,7 @@ const ProfileTab = () => {
 
         <Button
           variant="contained"
-          sx={{ marginBottom: theme.spacing(20)}}
+          sx={{ marginBottom: theme.spacing(20), width: 165, margin: "0 auto"}}
           onClick={() => handleBtnEdit()}
         >
           Ubah Profil

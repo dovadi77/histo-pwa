@@ -21,7 +21,7 @@ const DetailLearnPages = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const handleBtnPlay = () => {
-    navigate("/game-voice");
+    navigate("/edit-profile");
   };
 
   return (

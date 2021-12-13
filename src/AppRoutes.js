@@ -11,6 +11,7 @@ import DetailLearnPages from "./pages/DetailLearnPages";
 import LeaderBoardScreen from "./pages/LeaderBoardScreen";
 import Quiz from "./pages/quiz/QuizMain";
 import Speech_To_Text from "./pages/voice_recognition/speech_to_text";
+import Edit_Profile from "./pages/edit_profile";
 
 const useStyles = makeStyles({
   container: {
@@ -40,7 +41,8 @@ const AppRoutes = () => {
         <Route path="/detail-learn" element={<DetailLearnPages />} />
         <Route path="/leader-board" element={<LeaderBoardScreen />} />
         <Route path="/quiz" element={<Quiz />} />      
-        <Route path="/game-voice" element={<Speech_To_Text />} />      
+        <Route path="/game-voice" element={<Speech_To_Text />} /> 
+        <Route path="/edit-profile" element={<Edit_Profile />} />      
         </Routes>
     </div>
   );
