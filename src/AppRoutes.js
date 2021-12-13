@@ -1,3 +1,4 @@
+
 import { useMediaQuery } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React from "react";
@@ -8,6 +9,8 @@ import HomeScreen from "./pages/HomeScreen";
 import theme from "./theme";
 import DetailLearnPages from "./pages/DetailLearnPages";
 import LeaderBoardScreen from "./pages/LeaderBoardScreen";
+import Quiz from "./pages/quiz/QuizMain";
+import Speech_To_Text from "./pages/voice_recognition/speech_to_text";
 
 const useStyles = makeStyles({
   container: {
@@ -36,7 +39,9 @@ const AppRoutes = () => {
         <Route path="/home" element={<HomeScreen />} />
         <Route path="/detail-learn" element={<DetailLearnPages />} />
         <Route path="/leader-board" element={<LeaderBoardScreen />} />
-      </Routes>
+        <Route path="/quiz" element={<Quiz />} />      
+        <Route path="/game-voice" element={<Speech_To_Text />} />      
+        </Routes>
     </div>
   );
 };
