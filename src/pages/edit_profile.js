@@ -1,4 +1,5 @@
-import { Grid, Paper, TextField, Button } from "@mui/material";
+import { Grid, Paper, TextField, Button, AppBar, Toolbar, IconButton, Typography } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import React from "react";
 import { useNavigate } from 'react-router-dom';
 
@@ -13,6 +14,14 @@ function Edit_Profile() {
 
     return <div>
         <Grid>
+            <AppBar position="sticky">
+                <Toolbar>
+                    <IconButton onClick={() => navigate(-1)}>
+                        <ArrowBackIcon sx={{ color: "white" }} />
+                    </IconButton>
+                    <Typography variant="h6">Ubah Profil</Typography>
+                </Toolbar>
+            </AppBar>
             <Paper elevation={10} style={paperStyle}>
                 <Grid align='center'>
                     <h2>Halaman Profil</h2>
