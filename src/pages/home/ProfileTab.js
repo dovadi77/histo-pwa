@@ -86,7 +86,7 @@ const ProfileTab = () => {
 
         <Button
           variant="contained"
-          sx={{ marginBottom: theme.spacing(20) }}
+          sx={{ marginBottom: theme.spacing(20)}}
           onClick={() => handleBtnEdit()}
         >
           Ubah Profil
