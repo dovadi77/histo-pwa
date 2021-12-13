@@ -1,10 +1,11 @@
-import { Grid, Paper, Typography } from "@mui/material";
+import { Grid, Paper, Typography, Button } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/system";
 import React from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import theme from "../../theme";
 import image2 from "../../assets/b.png";
+import { useNavigate } from "react-router";
 
 
 const useStyles = makeStyles({
@@ -33,6 +34,11 @@ const useStyles = makeStyles({
 
 const ProfileTab = () => {
   const classes = useStyles();
+  const navigate = useNavigate();
+  const handleBtnEdit = () => {
+    navigate("/");
+  };
+
   return (
     <Box className={classes.container}>
       <Box>
@@ -51,7 +57,7 @@ const ProfileTab = () => {
           flexDirection: "column",
         }}
       >
-        <Box sx={{ marginBottom: 2 }}>
+        <Box sx={{ marginBottom: 7 }}>
           <Paper
             elevation={3}
             sx={{
@@ -77,6 +83,16 @@ const ProfileTab = () => {
             </Typography>
           </Paper>
         </Box>
+
+        <Button
+          variant="contained"
+          sx={{ marginBottom: theme.spacing(20) }}
+          onClick={() => handleBtnEdit()}
+        >
+          Ubah Profil
+        </Button>
+
+
         <Typography variant="h6">Penghargaan</Typography>
         <Grid container spacing={2} sx={{ marginTop: theme.spacing(3) }}>
           <Grid
