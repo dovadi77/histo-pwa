@@ -1,23 +1,12 @@
 /* eslint-disable jsx-a11y/alt-text */
 import { Card, CardActionArea, CardMedia, Typography } from "@mui/material";
-import { makeStyles } from "@mui/styles";
 import { Box } from "@mui/system";
 import React from "react";
 import { useNavigate } from "react-router";
 import theme from "../../theme";
 
-const useStyles = makeStyles({
-  container: {
-    flex: 1,
-    height: "80vh",
-    overflow: "scroll",
-  },
-});
-
 const LearnTab = () => {
-  const classes = useStyles();
   const navigate = useNavigate();
-
   const dummyList = [
     {
       title: "Fisika",
@@ -38,7 +27,7 @@ const LearnTab = () => {
       title: "Ekonomi",
       image:
         "https://koinworks.com/wp-content/uploads/2020/10/resesi-ekonomi-1024x576.jpg",
-    }
+    },
   ];
 
   const ItemLearn = (item) => {
@@ -74,9 +63,9 @@ const LearnTab = () => {
   };
 
   return (
-    <Box className={classes.container}>
+    <Box>
       {dummyList.map((data) => (
-        <ItemLearn item={data} />
+        <ItemLearn key={data.title} item={data} />
       ))}
     </Box>
   );

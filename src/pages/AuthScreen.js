@@ -155,6 +155,7 @@ export default function AuthScreen({ setToken, type }) {
       return checkRes(response);
     }
   }, [response, setToken]);
+
   return (
     <div>
       <CssBaseline />

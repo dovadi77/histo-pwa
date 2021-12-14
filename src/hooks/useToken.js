@@ -13,7 +13,7 @@ function useToken() {
 
   const saveToken = (userToken) => {
     if (userToken) {
-      setCookie("token", JSON.stringify(userToken.token), 24);
+      setCookie("token", JSON.stringify(userToken), 24);
       setToken(userToken.token);
     }
   };
