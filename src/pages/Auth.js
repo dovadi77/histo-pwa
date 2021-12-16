@@ -1,25 +1,15 @@
 import React, { useState, useEffect } from "react";
 import swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import { Link, Grid, Box, Typography, CssBaseline, Button } from "@mui/material";
+import { useSnackbar } from "notistack";
+import Input from "../components/Input";
 import useAPI from "../hooks/useAPI";
 import Cookies from "../utils/Cookies";
-import { useNavigate } from "react-router-dom";
-import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Toast from "../components/Toast";
-import Input from "../components/Input";
 
 function Copyright(props) {
   return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
+    <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {"Copyright © "}
       <Link color="inherit" href="#">
         Histo
@@ -44,19 +34,10 @@ const inputFieldList = {
   ],
 };
 
-export default function AuthScreen({ setToken, type }) {
-  const [message, setMessage] = useState("");
-  const [color, setColor] = useState("warning");
-  const [open, setOpen] = useState(false);
+export default function Auth({ setToken, token, type }) {
   const [isValid, setIsValid] = useState(false);
 
-  const setOpenIt = (val) => {
-    setOpen(val);
-  };
-
-  const setValid = (val) => {
-    setIsValid(val);
-  };
+  const { enqueueSnackbar } = useSnackbar();
 
   const { setCookie, checkCookie } = Cookies();
   const { response, setConfig } = useAPI();
@@ -64,26 +45,26 @@ export default function AuthScreen({ setToken, type }) {
   let session = checkCookie("token");
   let navigate = useNavigate();
 
-  // check token valid or not (redirect to login page)
+  const snackbar = (msg, type = "error") => {
+    enqueueSnackbar(msg, {
+      variant: type,
+    });
+  };
+
+  // token is still exits
   if (session && type === "login") {
-    let sessionResponse = JSON.parse(session);
     // if token null then clear token
-    if (!sessionResponse.token) {
+    if (!token) {
       setCookie("token", null, 0, true);
+      // send message to re-login
       swal.fire({
-        title: "Login Kembali",
+        title: "Silahkan Login Kembali",
         text: "Sesi sudah tidak valid, silahkan login kembali",
         showCloseButton: true,
         showConfirmButton: false,
         icon: "error",
-        timer: 3000,
       });
     }
-  }
-
-  if (type === "login") {
-    // if route redirect to login then clear token
-    setCookie("token", null, 0, true);
   }
 
   const postDataToAPI = (url, body) => {
@@ -104,9 +85,7 @@ export default function AuthScreen({ setToken, type }) {
     const data = Object.fromEntries(new FormData(event.currentTarget));
     if (type === "login") {
       if (data.email === "" || data.password === "") {
-        setMessage("Email / Password tidak boleh kosong !!!");
-        setColor("error");
-        setOpen(true);
+        snackbar("Email / Password tidak boleh kosong !!!");
       } else {
         setConfig(
           postDataToAPI("user/login", {
@@ -116,17 +95,8 @@ export default function AuthScreen({ setToken, type }) {
         );
       }
     } else {
-      if (
-        data.email === "" ||
-        data.password === "" ||
-        data.confirmPassword === "" ||
-        data.username === ""
-      ) {
-        setMessage(
-          "Nickname / Email / Password / Konfirmasi Password tidak boleh kosong !!!"
-        );
-        setColor("error");
-        setOpen(true);
+      if (data.email === "" || data.password === "" || data.confirmPassword === "" || data.username === "") {
+        snackbar("Nickname / Email / Password / Konfirmasi Password tidak boleh kosong !!!");
       } else {
         setConfig(
           postDataToAPI("user/register", {
@@ -144,16 +114,15 @@ export default function AuthScreen({ setToken, type }) {
   useEffect(() => {
     const checkRes = (res) => {
       if (res.success) {
-        setToken(res.data);
+        setToken(res.data.token);
       } else {
-        setMessage(res.message);
-        setColor("error");
-        setOpen(true);
+        snackbar(res.message);
       }
     };
     if (response) {
       return checkRes(response);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response, setToken]);
 
   return (
@@ -182,73 +151,31 @@ export default function AuthScreen({ setToken, type }) {
             </Typography>
           </div>
         </div>
-        <div
-          className="userForm"
-          style={{ height: type === "login" ? "70vh" : "82vh" }}
-        >
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 1, px: 6 }}
-          >
+        <div className="userForm" style={{ height: type === "login" ? "70vh" : "82vh" }}>
+          <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1, px: 6 }}>
             <div style={{ textAlign: "center", margin: "2em 0" }}>
               <Typography component="h3" variant="h5" fontWeight="500">
                 {type === "login" ? "Selamat Datang," : "Daftarkan Dirimu,"}
               </Typography>
               <Typography component="h3" variant="h5" fontWeight="500">
-                {type === "login"
-                  ? "Para Pejuang!"
-                  : "Menjadi Seorang Pejuang!"}
+                {type === "login" ? "Para Pejuang!" : "Menjadi Seorang Pejuang!"}
               </Typography>
             </div>
             {inputFieldList[type].map((input) => {
-              return (
-                <Input
-                  key={input[0]}
-                  input={input}
-                  type={type}
-                  setValid={setValid}
-                />
-              );
+              return <Input key={input[0]} input={input} type={type} setValid={setIsValid} />;
             })}
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              size="large"
-              sx={{ mt: 3, mb: 2 }}
-              disabled={isValid ? false : true}
-            >
+            <Button type="submit" fullWidth variant="contained" size="large" sx={{ mt: 3, mb: 2 }} disabled={isValid ? false : true}>
               {type === "login" ? "Masuk >" : "Daftar >"}
             </Button>
-            <Grid
-              container
-              direction="row"
-              justifyContent="center"
-              alignItems="center"
-            >
+            <Grid container direction="row" justifyContent="center" alignItems="center">
               <Grid item>
-                <Link
-                  variant="body2"
-                  onClick={() =>
-                    navigate(`${type === "login" ? "/register" : "/login"}`)
-                  }
-                >
-                  {type === "login"
-                    ? "Belum memiliki akun? Daftar"
-                    : "Sudah memiliki akun? Masuk"}
+                <Link variant="body2" onClick={() => navigate(`${type === "login" ? "/register" : "/login"}`)}>
+                  {type === "login" ? "Belum memiliki akun? Daftar" : "Sudah memiliki akun? Masuk"}
                 </Link>
               </Grid>
             </Grid>
           </Box>
           <Copyright sx={{ mt: 2 }} />
-          <Toast
-            color={color}
-            message={message}
-            openIt={open}
-            setOpenIt={setOpenIt}
-          />
         </div>
       </Box>
     </div>

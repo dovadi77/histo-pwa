@@ -32,7 +32,7 @@ const LearnTab = () => {
 
   const ItemLearn = (item) => {
     return (
-      <Card style={{ margin: theme.spacing(4) }}>
+      <Card style={{ margin: `${theme.spacing(4)} 0` }}>
         <CardActionArea>
           <Box
             sx={{

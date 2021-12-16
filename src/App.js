@@ -4,17 +4,20 @@ import { ThemeProvider } from "@mui/material/styles";
 import theme from "./theme";
 import Controller from "./Controller";
 import { BrowserRouter } from "react-router-dom";
+import { SnackbarProvider } from "notistack";
 
 function App() {
-	return (
-		<div className="App">
-			<ThemeProvider theme={theme}>
-				<BrowserRouter>
-					<Controller />
-				</BrowserRouter>
-			</ThemeProvider>
-		</div>
-	);
+  return (
+    <div className="App">
+      <ThemeProvider theme={theme}>
+        <SnackbarProvider>
+          <BrowserRouter>
+            <Controller />
+          </BrowserRouter>
+        </SnackbarProvider>
+      </ThemeProvider>
+    </div>
+  );
 }
 
 export default App;

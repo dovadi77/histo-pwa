@@ -1,142 +1,47 @@
-import { Grid, Paper, Typography } from "@mui/material";
-import { makeStyles } from "@mui/styles";
-import { Box } from "@mui/system";
-import React from "react";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import theme from "../../theme";
-import image2 from "../../assets/b.png";
+import React, { useEffect, useState } from "react";
+import { Paper, Box } from "@mui/material";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Show from "../profile/Show";
+import Update from "../profile/Update";
+import ChangePass from "../profile/ChangePass";
+import { getDataFromAPI } from "../../utils/API";
+import useAPI from "../../hooks/useAPI";
 
+const ProfileTab = ({ token, setToken, setBack, setTitle }) => {
+  const { response, setConfig } = useAPI();
+  const [user, setUser] = useState({});
+  const [updateUser, setUpdateUser] = useState();
 
-const useStyles = makeStyles({
-  container: {
-    display: "flex",
-    flex: 1,
-    flexDirection: "column",
-  },
-  boxInput: {
-    display: "flex",
-    textAlign: "left",
-    flexDirection: "column",
-    marginBottom: theme.spacing(2),
-    marginTop: theme.spacing(2),
-  },
-  roundedImage: {
-    height: 80,
-    width: 80,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: "50%",
-    backgroundColor: "#f5c242",
-  },
-});
+  // update profile from API response
+  useEffect(() => {
+    if (response) {
+      if (response.message === "Unauthorized") {
+        setToken(null);
+      } else {
+        setUser(response.data);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [response, user, updateUser]);
 
-const ProfileTab = () => {
-  const classes = useStyles();
+  // set parameter for API and call it
+  useEffect(() => {
+    setConfig(getDataFromAPI("user/me", token));
+  }, [setConfig, token, updateUser]);
+
   return (
-    <Box className={classes.container}>
-      <Box>
-        <AccountCircleIcon
-          sx={{
-            width: 100,
-            height: 100,
-            marginTop: theme.spacing(10),
-          }}
-        />
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          flex: 1,
-          flexDirection: "column",
-        }}
-      >
-        <Box sx={{ marginBottom: 2 }}>
-          <Paper
-            elevation={3}
-            sx={{
-              margin: theme.spacing(4),
-              padding: theme.spacing(2),
-            }}
-          >
-            <Typography>
-              <Box className={classes.boxInput}>
-                <Typography variant="h6" component="div">
-                  Nama
-                </Typography>
-                <Typography variant="body">PoponKT</Typography>
-                <Typography
-                  variant="h6"
-                  component="div"
-                  sx={{ marginTop: theme.spacing(1) }}
-                >
-                  Email
-                </Typography>
-                <Typography variant="body">kevdam@gmail.com</Typography>
-              </Box>
-            </Typography>
-          </Paper>
-        </Box>
-        <Typography variant="h6">Penghargaan</Typography>
-        <Grid container spacing={2} sx={{ marginTop: theme.spacing(3) }}>
-          <Grid
-            item
-            xs={3}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <Box>
-              <Box className={classes.roundedImage}>
-                <img alt="abc" src={image2} style={{ width: 50, height: 50 }} />
-              </Box>
-            </Box>
-          </Grid>
-          <Grid
-            item
-            xs={3}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <Box>
-              <Box className={classes.roundedImage}>
-                <img alt="abc" src={image2} style={{ width: 50, height: 50 }} />
-              </Box>
-            </Box>
-          </Grid>
-          <Grid
-            item
-            xs={3}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <Box>
-              <Box className={classes.roundedImage}>
-                <img alt="abc" src={image2} style={{ width: 50, height: 50 }} />
-              </Box>
-            </Box>
-          </Grid>
-          <Grid
-            item
-            xs={3}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <Box>
-              <Box className={classes.roundedImage}>
-                <img alt="abc" src={image2} style={{ width: 50, height: 50 }} />
-              </Box>
-            </Box>
-          </Grid>
-        </Grid>
-      </Box>
+    <Box sx={{ mt: 8, mb: 4 }}>
+      <Paper elevation={4} sx={{ minHeight: "75vh" }}>
+        <Routes>
+          <Route index element={<Show token={token} setToken={setToken} user={user} setBack={setBack} setTitle={setTitle} />} />
+          <Route
+            path="update"
+            element={<Update token={token} setToken={setToken} user={user} setUpdateUser={setUpdateUser} setBack={setBack} setTitle={setTitle} />}
+          />
+          <Route path="change-pass" element={<ChangePass token={token} setToken={setToken} user={user} setBack={setBack} setTitle={setTitle} />} />
+          <Route path="*" element={<Navigate to={""} />} />
+        </Routes>
+      </Paper>
     </Box>
   );
 };

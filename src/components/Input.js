@@ -6,8 +6,8 @@ const emailRegex =
   /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 const passRegex = /^(?=.*\d)(?=.*[a-z])/i;
 
-export default function Input({ input, setValid, type }) {
-  const [value, setValue] = useState("");
+export default function Input({ input, setValid, type, oldValue = "" }) {
+  const [value, setValue] = useState(oldValue);
   const [error, setError] = useState("");
 
   const checkValue = (event) => {
@@ -27,6 +27,21 @@ export default function Input({ input, setValid, type }) {
     }
     if (type === "register") {
       if (input[2] === "password") {
+        if (event.target.value.length > 7) {
+          if (!passRegex.test(event.target.value)) {
+            setError("Password harus memiliki kombinasi huruf dan angka");
+            setValid(false);
+          } else {
+            setError(null);
+            setValid(true);
+          }
+        } else {
+          setError("Minimal 8 karakter");
+          setValid(false);
+        }
+      }
+    } else if (type === "update") {
+      if (input[0] === "password" || input[0] === "confirm_password") {
         if (event.target.value.length > 7) {
           if (!passRegex.test(event.target.value)) {
             setError("Password harus memiliki kombinasi huruf dan angka");

@@ -13,11 +13,9 @@ function API() {
           config.data
         );
         const data = await response.json();
-        console.log(data);
         setResponse(data);
       } catch (err) {
         if (err.success === false) {
-          console.log(err);
           setResponse(err);
         } else {
           setResponse({

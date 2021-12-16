@@ -6,7 +6,7 @@ function useToken() {
   const getToken = () => {
     const tokenString = checkCookie("token");
     const userToken = JSON.parse(tokenString);
-    return userToken?.token;
+    return userToken;
   };
 
   const [token, setToken] = useState(getToken());
@@ -14,7 +14,9 @@ function useToken() {
   const saveToken = (userToken) => {
     if (userToken) {
       setCookie("token", JSON.stringify(userToken), 24);
-      setToken(userToken.token);
+      setToken(userToken);
+    } else {
+      setToken(null);
     }
   };
 

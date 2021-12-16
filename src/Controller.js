@@ -1,8 +1,8 @@
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import AuthScreen from "./pages/AuthScreen";
+import Auth from "./pages/Auth";
 import useToken from "./hooks/useToken";
-import Home from "./Home";
+import Home from "./pages/Home";
 
 const Controller = () => {
   const { token, setToken } = useToken();
@@ -10,19 +10,13 @@ const Controller = () => {
   if (!token) {
     return (
       <Routes>
-        <Route
-          path="/login"
-          element={<AuthScreen setToken={setToken} type="login" />}
-        />
-        <Route
-          path="/register"
-          element={<AuthScreen setToken={setToken} type="register" />}
-        />
+        <Route path="/login" element={<Auth setToken={setToken} type="login" />} />
+        <Route path="/register" element={<Auth setToken={setToken} type="register" />} />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     );
   } else {
-    return <Home setToken={setToken} />;
+    return <Home setToken={setToken} token={token} />;
   }
 };
 
