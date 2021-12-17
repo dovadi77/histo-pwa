@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Paper, Box, Container, Button } from "@mui/material";
-import { PhotoCameraBackOutlined } from "@mui/icons-material";
+import { PhotoCameraFrontOutlined } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import Input from "../../components/Input";
@@ -104,7 +104,7 @@ function Update({ user, setToken, setBack, setTitle, setUpdateUser, token }) {
               alignItems: "center",
             }}
           >
-            <PhotoCameraBackOutlined />
+            <PhotoCameraFrontOutlined />
           </Box>
         </Paper>
       </div>
