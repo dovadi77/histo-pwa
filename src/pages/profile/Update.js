@@ -78,10 +78,8 @@ function Update({ user, setToken, setBack, setTitle, setUpdateUser, token }) {
       closeModal();
       let formdata = new FormData();
       formdata.append("image", getCroppedImage());
-      console.log(formdata.getAll("image"));
       setConfig(postDataToAPI("user/me?_method=put", formdata, token, false));
     }
-    console.log("clicked");
   };
 
   return (

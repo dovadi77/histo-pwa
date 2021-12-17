@@ -83,7 +83,6 @@ export default function ImageCropper() {
 
     convertCanvasToFile(canvas, "updateprofile.jpg").then((res) => {
       useCroppedImage.setState({ image: res });
-      console.log(getCroppedImage());
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [completedCrop]);

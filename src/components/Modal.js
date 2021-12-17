@@ -79,7 +79,6 @@ export default function Modal() {
         </BootstrapDialogTitle>
         <DialogContent dividers>{BodyEl}</DialogContent>
         <DialogActions>
-          {console.log(onClick)}
           <Button variant="contained" autoFocus onClick={onClick} disabled={onClick && false}>
             Save
           </Button>
