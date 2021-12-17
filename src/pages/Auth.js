@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { Link, Grid, Box, Typography, CssBaseline, Button } from "@mui/material";
+import { Link, Grid, Box, Typography, Button } from "@mui/material";
 import { useSnackbar } from "notistack";
 import Input from "../components/Input";
 import useAPI from "../hooks/useAPI";
@@ -127,7 +127,6 @@ export default function Auth({ setToken, token, type }) {
 
   return (
     <div>
-      <CssBaseline />
       <Box
         sx={{
           display: "flex",
