@@ -72,16 +72,16 @@ function ChangePass({ user, setToken, setBack, setTitle, token }) {
     <>
       <div>
         <Container className="form-update" style={{ height: "73vh" }}>
-          <Box component="form" onSubmit={handleSubmit}>
+          <Box component="form" onSubmit={handleSubmit} className="form-update-input">
             {forms.map((input) => {
               return <Input key={input[0]} input={input} type={"update"} setValid={setIsValid} />;
             })}
+            <div className="btn-bottom">
+              <Button type="submit" fullWidth variant="contained" size="large" sx={{ mt: 1, mb: 2 }} disabled={isValid ? false : true}>
+                Simpan
+              </Button>
+            </div>
           </Box>
-          <div className="btn-bottom">
-            <Button type="submit" fullWidth variant="contained" size="large" sx={{ mt: 1, mb: 2 }} disabled={isValid ? false : true}>
-              Simpan
-            </Button>
-          </div>
         </Container>
       </div>
     </>

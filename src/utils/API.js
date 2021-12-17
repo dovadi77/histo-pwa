@@ -10,16 +10,15 @@ const getDataFromAPI = (url, token) => {
   };
 };
 
-const postDataToAPI = (url, body, token) => {
+const postDataToAPI = (url, body, token, isJson = true) => {
   return {
     url: url,
     data: {
       method: "post",
       headers: {
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
       },
-      body: JSON.stringify(body),
+      body: isJson ? JSON.stringify(body) : body,
     },
   };
 };
@@ -31,7 +30,6 @@ const updateDataToAPI = (url, body, token) => {
       method: "put",
       headers: {
         Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
     },

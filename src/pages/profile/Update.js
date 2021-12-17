@@ -4,7 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import Input from "../../components/Input";
 import useAPI from "../../hooks/useAPI";
-import { updateDataToAPI } from "../../utils/API";
+import { updateDataToAPI, postDataToAPI } from "../../utils/API";
+import Modal, { closeModal, openModal } from "../../components/Modal";
+import ImageCropper, { getCroppedImage } from "../../components/ImageCropper";
+import { PhotoCameraBackOutlined } from "@mui/icons-material";
 
 const forms = [
   ["name", "Nama", "text", false],
@@ -70,29 +73,58 @@ function Update({ user, setToken, setBack, setTitle, setUpdateUser, token }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response]);
 
+  const saveImage = () => {
+    if (getCroppedImage()) {
+      closeModal();
+      let formdata = new FormData();
+      formdata.append("image", getCroppedImage());
+      console.log(formdata.getAll("image"));
+      setConfig(postDataToAPI("user/me?_method=put", formdata, token, false));
+    }
+    console.log("clicked");
+  };
+
   return (
     <>
       <div className="profile-img">
-        <Paper elevation={3} className="profile-img-container">
-          <img className="img-fluid" alt="Profile" src={user.image} />
+        <Paper elevation={3} className="profile-img-container" onClick={() => openModal("Ubah foto profile", <ImageCropper />, true, saveImage)}>
+          <img className="img-fluid" alt="Profile" src={user.image + "?" + Date.now()} />
+          <Box
+            sx={{
+              position: "absolute",
+              backgroundColor: "rgba(0, 0, 0, 0.2)",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              borderRadius: "50%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <PhotoCameraBackOutlined />
+          </Box>
         </Paper>
       </div>
       <div style={{ padding: "7vh 0 2vh 0" }}>
         <Container className="form-update">
-          <Box component="form" onSubmit={handleSubmit}>
+          <Box component="form" onSubmit={handleSubmit} className="form-update-input">
             {forms.map((input) => {
               return <Input key={input[0]} input={input} type={"update"} setValid={setIsValid} oldValue={user[input[0]]} />;
             })}
+            <div className="btn-bottom">
+              <Button fullWidth variant="outlined" size="large" sx={{ mt: 1, mb: 1 }} onClick={() => navigate("/profile/change-pass")}>
+                Ubah Kata Sandi
+              </Button>
+              <Button type="submit" fullWidth variant="contained" size="large" sx={{ mt: 1, mb: 2 }} disabled={isValid ? false : true}>
+                Simpan
+              </Button>
+            </div>
           </Box>
-          <div className="btn-bottom">
-            <Button fullWidth variant="outlined" size="large" sx={{ mt: 1, mb: 1 }} onClick={() => navigate("/profile/change-pass")}>
-              Ubah Kata Sandi
-            </Button>
-            <Button type="submit" fullWidth variant="contained" size="large" sx={{ mt: 1, mb: 2 }} disabled={isValid ? false : true}>
-              Simpan
-            </Button>
-          </div>
         </Container>
+        <Modal />
       </div>
     </>
   );
