@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Paper, Box, Container, Button } from "@mui/material";
+import { PhotoCameraBackOutlined } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import Input from "../../components/Input";
@@ -7,7 +8,6 @@ import useAPI from "../../hooks/useAPI";
 import { updateDataToAPI, postDataToAPI } from "../../utils/API";
 import Modal, { closeModal, openModal } from "../../components/Modal";
 import ImageCropper, { getCroppedImage } from "../../components/ImageCropper";
-import { PhotoCameraBackOutlined } from "@mui/icons-material";
 
 const forms = [
   ["name", "Nama", "text", false],
