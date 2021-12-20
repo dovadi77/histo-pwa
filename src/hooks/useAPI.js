@@ -1,17 +1,14 @@
 import { useEffect, useState } from "react";
 import Config from "../config";
 
-function API() {
+function useAPI() {
   const [response, setResponse] = useState(null);
   const [config, setConfig] = useState(null);
 
   useEffect(() => {
     const reqAPI = async (config) => {
       try {
-        const response = await fetch(
-          `${Config.apiBaseURL}${config.url}`,
-          config.data
-        );
+        const response = await fetch(`${Config.apiBaseURL}${config.url}`, config.data);
         const data = await response.json();
         setResponse(data);
       } catch (err) {
@@ -33,4 +30,4 @@ function API() {
   return { response, setConfig };
 }
 
-export default API;
+export default useAPI;

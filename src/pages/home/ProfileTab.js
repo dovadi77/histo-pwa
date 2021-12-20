@@ -31,7 +31,7 @@ const ProfileTab = ({ token, setToken, setBack, setTitle }) => {
 
   return (
     <Box sx={{ mt: 8, mb: 4 }}>
-      <Paper elevation={4} sx={{ minHeight: "75vh" }}>
+      <Paper elevation={4} sx={{ minHeight: "75vh", borderRadius: "30px" }}>
         <Routes>
           <Route index element={<Show token={token} setToken={setToken} user={user} setBack={setBack} setTitle={setTitle} />} />
           <Route

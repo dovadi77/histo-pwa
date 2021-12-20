@@ -59,7 +59,7 @@ const Home = ({ token, setToken }) => {
           </Toolbar>
         </AppBar>
       </div>
-      <Container sx={{ pb: 7, pt: 7 }}>
+      <Container sx={{ pb: back ? 1 : 7, pt: 7 }}>
         <Routes>
           <Route path="/material/*" element={<LearnTab token={token} setBack={setGoBack} setTitle={setNewTitle} />} />
           <Route path="/games/*" element={<GameTab token={token} setBack={setGoBack} setTitle={setNewTitle} />} />
@@ -67,7 +67,7 @@ const Home = ({ token, setToken }) => {
           <Route path="*" element={<Navigate to="/material" />} />
         </Routes>
       </Container>
-      <Paper className="bottom-navbar-container" elevation={0}>
+      <Paper className="bottom-navbar-container" elevation={0} hidden={back}>
         <BottomNavigation
           className="bottom-navbar"
           showLabels
