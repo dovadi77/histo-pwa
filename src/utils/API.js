@@ -11,13 +11,15 @@ const getDataFromAPI = (url, token) => {
 };
 
 const postDataToAPI = (url, body, token, isJson = true) => {
+  let headers = {
+    Authorization: `Bearer ${token}`,
+  };
+  if (isJson) headers["Content-Type"] = "application/json";
   return {
     url: url,
     data: {
       method: "post",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+      headers,
       body: isJson ? JSON.stringify(body) : body,
     },
   };

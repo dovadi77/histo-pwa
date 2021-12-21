@@ -41,7 +41,8 @@ const Detail = ({ setBack, setTitle, setToken, token }) => {
   }, [setConfig, token]);
 
   const handleBtnPlay = () => {
-    navigate("/game-voice");
+    if (material.score === undefined) navigate("/material/quiz", { state: state.id });
+    else navigate("/material/quiz/update", { state: state.id });
   };
 
   const Material = () => {
@@ -53,10 +54,15 @@ const Detail = ({ setBack, setTitle, setToken, token }) => {
             {material.title}
           </Typography>
           <Typography sx={{ marginTop: theme.spacing(2) }}>{material.content}</Typography>
+          {material.score !== undefined && (
+            <Typography component={"h3"} variant={"h5"} sx={{ marginTop: theme.spacing(2) }}>
+              Skor terakhir : {material.score}
+            </Typography>
+          )}
         </div>
-        <div className="play-btn-container" style={{ marginTop: theme.spacing(4) }}>
-          <Button variant="contained" onClick={() => handleBtnPlay()}>
-            Bermain
+        <div className="play-btn-container" style={{ margin: `${theme.spacing(4)} 0` }}>
+          <Button fullWidth variant="contained" onClick={() => handleBtnPlay()}>
+            {material.score !== undefined ? "Main Lagi" : "Bermain"}
           </Button>
         </div>
       </div>

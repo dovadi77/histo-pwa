@@ -4,6 +4,7 @@ import { Paper, Box } from "@mui/material";
 import Category from "../material/Category";
 import List from "../material/List";
 import Detail from "../material/Detail";
+import Quiz from "../material/Quiz";
 
 function LearnTab({ token, setToken, setBack, setTitle }) {
   return (
@@ -13,6 +14,8 @@ function LearnTab({ token, setToken, setBack, setTitle }) {
           <Route index element={<Category token={token} setToken={setToken} setBack={setBack} setTitle={setTitle} />} />
           <Route path="list" element={<List token={token} setToken={setToken} setBack={setBack} setTitle={setTitle} />} />
           <Route path="list/detail" element={<Detail token={token} setToken={setToken} setBack={setBack} setTitle={setTitle} />} />
+          <Route path="quiz" element={<Quiz token={token} setToken={setToken} setBack={setBack} setTitle={setTitle} />} />
+          <Route path="quiz/update" element={<Quiz token={token} setToken={setToken} setBack={setBack} setTitle={setTitle} update={true} />} />
           <Route path="*" element={<Navigate to={""} />} />
         </Routes>
       </Paper>

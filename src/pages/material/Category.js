@@ -45,7 +45,7 @@ const Category = ({ token, setToken, setTitle, setBack }) => {
       <Card style={{ margin: `${theme.spacing(4)} 0` }}>
         <CardActionArea>
           <Box className="material-filter" onClick={() => navigate("list", { state: item.id })}>
-            <Typography variant="h5" color="rgba(255, 255, 255, 0.8)" textAlign={"center"} sx={{ margin: "0 0.5em" }}>
+            <Typography variant="h5" color="rgb(255, 255, 255)" textAlign={"center"} sx={{ margin: "0 0.5em" }}>
               {item.title}
             </Typography>
           </Box>
