@@ -14,24 +14,6 @@
   display: none;
 }
 
-.finalPage {
-  display: flex;
-  align-content: center;
-  flex-direction: column;
-  text-align: center;
-}
-
-.finalPage h1 {
-  text-align: center;
-  margin: 15px 0;
-  font-size: 25px;
-  font-family: Arial, sans-serif;
-  font-weight: bold;
-  color: #008416;
-  text-transform: none;
-  text-shadow: none;
-}
-
 .Content {
   display: flex;
   flex: 1;

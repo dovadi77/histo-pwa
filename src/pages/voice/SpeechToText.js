@@ -4,11 +4,16 @@ import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognitio
 import DeleteIcon from "@mui/icons-material/Delete";
 import ManageSearchIcon from "@mui/icons-material/ManageSearch";
 import { Box } from "@mui/system";
+import useAPI from "../../hooks/useAPI";
+import { postDataToAPI, updateDataToAPI } from "../../utils/API";
+import { useNavigate } from "react-router";
 
 function SpeechToText({ content, answer, setToken, url, quiz_id, token, update, title, setTitle }) {
   const [open, setOpen] = React.useState(false);
   const [isRunning, setRunning] = React.useState(false);
   const [score, setScore] = React.useState(null);
+  const { response, setConfig } = useAPI();
+  const navigate = useNavigate();
 
   //MARK: -Command Speech Recognition
   const commands = [
@@ -37,6 +42,27 @@ function SpeechToText({ content, answer, setToken, url, quiz_id, token, update, 
     }, 100);
   };
 
+  const sendAnswer = () => {
+    let data = {};
+    if (quiz_id) {
+      data = {
+        quiz_id,
+        user_answer: transcript,
+      };
+    } else {
+      data = {
+        user_answer: transcript,
+        user_time: 1,
+      };
+    }
+    if (!update) setConfig(postDataToAPI(url, data, token));
+    else setConfig(updateDataToAPI(url, data, token));
+  };
+
+  const redirect = (val) => {
+    navigate(val);
+  };
+
   useEffect(() => {
     setTitle("Bacakan Teks ini!");
   });
@@ -53,70 +79,90 @@ function SpeechToText({ content, answer, setToken, url, quiz_id, token, update, 
     }
   }, [isRunning]);
 
+  // get data
+  useEffect(() => {
+    if (response) {
+      if (response.message === "Unauthorized") {
+        setToken(null);
+      } else {
+        setScore(response.data.score);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [response, setToken]);
+
   if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
     return null;
   }
-
   return (
-    <div>
+    <div className="content">
       <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
-        <DialogTitle id="alert-dialog-title">{"MERDEKA"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Pada hari Proklamasi Kemerdekaan yakni hari Jumat tanggal 17 Agustus 1945 pukul 0.00 WIB., teks ini dibacakan oleh Soekarno didampingi Mohammad
-            Hatta di serambi depan rumah Soekarno yang terletak di Jl. Pegangsaan Timur Nomor 56, Jakarta (sekarang Jl. Proklamasi Nomor 5, Jakarta Pusat).
-          </DialogContentText>
+          <DialogContentText id="alert-dialog-description">{content}</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Lanjutkan</Button>
         </DialogActions>
       </Dialog>
-
-      <Box>
-        <Paper elevation={0}>
-          <Grid align="center">
-            <h2>{title}</h2>
-          </Grid>
-          <p>{answer}</p>
-        </Paper>
-        <Paper elevation={0}>
-          <div style={{ position: "relative", textAlign: "center" }}>
-            <h2>Hasil Input</h2>
-            <div style={{ position: "absolute", top: 0, right: 0 }}>
-              <Button onClick={reset} color="primary" variant="text" sx={{ borderRadius: "50%" }}>
-                <DeleteIcon />
-              </Button>
+      {score === null ? (
+        <Box>
+          <Paper elevation={0}>
+            <Grid align="center">
+              <h2>{title}</h2>
+            </Grid>
+            <p>{answer}</p>
+          </Paper>
+          <Paper elevation={0}>
+            <div style={{ position: "relative", textAlign: "center" }}>
+              <h2>Hasil Input</h2>
+              <div style={{ position: "absolute", top: 0, right: 0 }}>
+                <Button onClick={reset} color="primary" variant="text" sx={{ borderRadius: "50%" }}>
+                  <DeleteIcon />
+                </Button>
+              </div>
+              <div style={{ position: "absolute", top: 0, left: 0 }}>
+                <Button onClick={sendAnswer} color="primary" variant="text" sx={{ borderRadius: "50%" }} disabled={transcript.length === 0 || isRunning}>
+                  <ManageSearchIcon />
+                </Button>
+              </div>
             </div>
-            <div style={{ position: "absolute", top: 0, left: 0 }}>
-              <Button color="primary" variant="text" sx={{ borderRadius: "50%" }}>
-                <ManageSearchIcon />
-              </Button>
+            <div className="voice-input">
+              <p>{transcript}</p>
             </div>
+          </Paper>
+          <Button
+            onClick={() => setRunning(true)}
+            color="primary"
+            variant="contained"
+            fullWidth
+            sx={{ display: isRunning ? "none" : "inherit", marginBottom: "1em" }}
+          >
+            Mulai
+          </Button>
+          <Button
+            fullWidth
+            onClick={() => setRunning(false)}
+            type="submit"
+            color="primary"
+            variant="contained"
+            sx={{ display: !isRunning ? "none" : "inherit", marginBottom: "1em" }}
+          >
+            Stop
+          </Button>
+        </Box>
+      ) : (
+        <div className="finalPage">
+          <h1>Anda telah menyelesaikan {quiz_id ? "QUIZ" : "GAME"}</h1>
+          <h3>Skor anda:</h3>
+          <h2 style={{ fontSize: "15em", margin: 0 }}>{score}</h2>
+          <div className="btn-bottom">
+            <Button fullWidth variant="contained" onClick={() => redirect(-2)}>
+              Kembali ke {quiz_id ? "Daftar Materi" : "Daftar Game"}
+            </Button>
           </div>
-          <div className="voice-input">
-            <p>{transcript}</p>
-          </div>
-        </Paper>
-        <Button
-          onClick={() => setRunning(true)}
-          color="primary"
-          variant="contained"
-          fullWidth
-          sx={{ display: isRunning ? "none" : "inherit", marginBottom: "1em" }}
-        >
-          Mulai
-        </Button>
-        <Button
-          fullWidth
-          onClick={() => setRunning(false)}
-          type="submit"
-          color="primary"
-          variant="contained"
-          sx={{ display: !isRunning ? "none" : "inherit", marginBottom: "1em" }}
-        >
-          Stop
-        </Button>
-      </Box>
+        </div>
+      )}
     </div>
   );
 }

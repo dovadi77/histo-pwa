@@ -71,6 +71,7 @@ const Multiple = ({ content, answer, setToken, url, quiz_id, token, update }) =>
     if (!update) setConfig(postDataToAPI(url, data, token));
     else setConfig(updateDataToAPI(url, data, token));
   };
+
   const redirect = () => {
     navigate(-2);
   };
@@ -95,7 +96,8 @@ const Multiple = ({ content, answer, setToken, url, quiz_id, token, update }) =>
       ) : (
         <div className="finalPage">
           <h1>Anda telah menyelesaikan {quiz_id ? "QUIZ" : "GAME"}</h1>
-          <h3>Skor anda: {score}</h3>
+          <h3>Skor anda:</h3>
+          <h2 style={{ fontSize: "15em", margin: 0 }}>{score}</h2>
           <div className="btn-bottom">
             <Button fullWidth variant="contained" onClick={redirect}>
               Kembali ke {quiz_id ? "Daftar Materi" : "Daftar Game"}
