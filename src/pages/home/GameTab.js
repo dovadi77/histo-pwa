@@ -1,55 +1,27 @@
-import {
-    Card,
-    CardActionArea,
-    CardContent,
-    Grid,
-    Typography,
-  } from "@mui/material";
-  import { Box } from "@mui/system";
-  import React from "react";
-  import PersonIcon from "@mui/icons-material/Person";
-  import GroupIcon from "@mui/icons-material/Group";
-  import theme from "../../theme";
-  import { useNavigate } from "react-router";
-  
-  const GameTab = () => {
-    const navigate = useNavigate();
-    return (
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          flex: 1,
-          height: "100%",
-          padding: theme.spacing(2),
-          marginTop: theme.spacing(2),
-        }}
-      >
-        <Grid container spacing={2}>
-          <Grid item xs={6}>
-            <Card onClick={() => navigate("/leader-board")}>
-              <CardActionArea>
-                <PersonIcon sx={{ width: 100, height: 100 }} />
-                <CardContent>
-                  <Typography>Individual</Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
-          <Grid item xs={6}>
-            <Card>
-              <CardActionArea>
-                <GroupIcon sx={{ width: 100, height: 100 }} />
-                <CardContent>
-                  <Typography>Versus</Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
-        </Grid>
-      </Box>
-    );
-  };
-  
-  export default GameTab;
-  
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { Paper, Box } from "@mui/material";
+import Category from "../game/Category";
+import List from "../game/List";
+import Detail from "../game/Detail";
+import Game from "../game/Game";
+import Rank from "../game/Rank";
+
+function LearnTab({ token, setToken, setBack, setTitle }) {
+  return (
+    <Box sx={{ mt: 4, mb: 4 }}>
+      <Paper elevation={4} sx={{ minHeight: "77vh", px: 2, py: 1, borderRadius: "30px" }}>
+        <Routes>
+          <Route index element={<Category token={token} setToken={setToken} setBack={setBack} setTitle={setTitle} />} />
+          <Route path="rank" element={<Rank token={token} setToken={setToken} setBack={setBack} setTitle={setTitle} />} />
+          <Route path="list" element={<List token={token} setToken={setToken} setBack={setBack} setTitle={setTitle} />} />
+          <Route path="list/detail" element={<Detail token={token} setToken={setToken} setBack={setBack} setTitle={setTitle} />} />
+          <Route path="play" element={<Game token={token} setToken={setToken} setBack={setBack} setTitle={setTitle} />} />
+          <Route path="*" element={<Navigate to={""} />} />
+        </Routes>
+      </Paper>
+    </Box>
+  );
+}
+
+export default LearnTab;

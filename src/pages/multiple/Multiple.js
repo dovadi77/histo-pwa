@@ -7,6 +7,8 @@ import useAPI from "../../hooks/useAPI";
 import "./Multiple.css";
 import { Box, Button } from "@mui/material";
 import { useNavigate } from "react-router";
+import ProgressBar from "../../components/ProgressBar";
+import { getUserTime } from "../../components/ProgressBar";
 
 const useMultiple = create((set) => ({
   userAnswer: [],
@@ -14,7 +16,7 @@ const useMultiple = create((set) => ({
   score: 0,
 }));
 
-const Multiple = ({ content, answer, setToken, url, quiz_id, token, update }) => {
+const Multiple = ({ content, answer, setToken, url, quiz_id, game_id, token, update, maxTime }) => {
   const correctAnswers = answer.split(",");
   const { userAnswer, step, score } = useMultiple();
   const { response, setConfig } = useAPI();
@@ -46,6 +48,7 @@ const Multiple = ({ content, answer, setToken, url, quiz_id, token, update }) =>
       userAnswer: [...userAnswer, ans],
     });
   };
+
   const nextStep = () => {
     useMultiple.setState({
       step: step + 1,
@@ -65,7 +68,7 @@ const Multiple = ({ content, answer, setToken, url, quiz_id, token, update }) =>
     } else {
       data = {
         user_answer: userAnswer.join(","),
-        user_time: 1,
+        user_time: getUserTime() / 60,
       };
     }
     if (!update) setConfig(postDataToAPI(url, data, token));
@@ -79,25 +82,28 @@ const Multiple = ({ content, answer, setToken, url, quiz_id, token, update }) =>
   return (
     <div className="Content">
       {step < content.length ? (
-        <Box>
-          <Question question={content[step].question} />
-          <Answer answer={content[step].choices} saveAnswer={saveAnswer} correctAnswer={correctAnswers[step]} />
-          <Button
-            variant="contained"
-            color="success"
-            fullWidth
-            sx={{ marginY: "1em" }}
-            disabled={userAnswer.length - 1 === step ? false : true}
-            onClick={nextStep}
-          >
-            Next
-          </Button>
-        </Box>
+        <>
+          <Box>
+            <Question question={content[step].question} />
+            <Answer answer={content[step].choices} saveAnswer={saveAnswer} correctAnswer={correctAnswers[step]} />
+            <Button
+              variant="contained"
+              color="success"
+              fullWidth
+              sx={{ marginY: "1em" }}
+              disabled={userAnswer.length - 1 === step ? false : true}
+              onClick={nextStep}
+            >
+              Next
+            </Button>
+          </Box>
+          {!quiz_id && <ProgressBar maxTime={maxTime} />}
+        </>
       ) : (
         <div className="finalPage">
           <h1>Anda telah menyelesaikan {quiz_id ? "QUIZ" : "GAME"}</h1>
           <h3>Skor anda:</h3>
-          <h2 style={{ fontSize: "15em", margin: 0 }}>{score}</h2>
+          <h2 style={{ fontSize: "11em", margin: 0 }}>{score}</h2>
           <div className="btn-bottom">
             <Button fullWidth variant="contained" onClick={redirect}>
               Kembali ke {quiz_id ? "Daftar Materi" : "Daftar Game"}

@@ -98,7 +98,7 @@ export default function ImageCropper() {
         </label>
       </div>
       <ReactCrop circularCrop={true} src={upImg} onImageLoaded={onLoad} crop={crop} onChange={(c) => setCrop(c)} onComplete={(c) => setCompletedCrop(c)} />
-      <div className="center-cropped-image">
+      <div className="flex-center">
         <canvas
           ref={previewCanvasRef}
           // Rounding is important so the canvas width and height matches/is a multiple for sharpness.

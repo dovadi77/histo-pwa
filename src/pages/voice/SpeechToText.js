@@ -7,8 +7,10 @@ import { Box } from "@mui/system";
 import useAPI from "../../hooks/useAPI";
 import { postDataToAPI, updateDataToAPI } from "../../utils/API";
 import { useNavigate } from "react-router";
+import { getUserTime } from "../../components/ProgressBar";
+import ProgressBar from "../../components/ProgressBar";
 
-function SpeechToText({ content, answer, setToken, url, quiz_id, token, update, title, setTitle }) {
+function SpeechToText({ content, answer, setToken, setTitle, title, url, quiz_id, game_id, token, update, maxTime }) {
   const [open, setOpen] = React.useState(false);
   const [isRunning, setRunning] = React.useState(false);
   const [score, setScore] = React.useState(null);
@@ -52,7 +54,7 @@ function SpeechToText({ content, answer, setToken, url, quiz_id, token, update, 
     } else {
       data = {
         user_answer: transcript,
-        user_time: 1,
+        user_time: getUserTime() / 60,
       };
     }
     if (!update) setConfig(postDataToAPI(url, data, token));
@@ -68,7 +70,6 @@ function SpeechToText({ content, answer, setToken, url, quiz_id, token, update, 
   });
 
   useEffect(() => {
-    console.log(isRunning);
     if (isRunning) {
       SpeechRecognition.startListening({
         continuous: true,
@@ -150,12 +151,13 @@ function SpeechToText({ content, answer, setToken, url, quiz_id, token, update, 
           >
             Stop
           </Button>
+          {!quiz_id && <ProgressBar maxTime={maxTime} />}
         </Box>
       ) : (
         <div className="finalPage">
           <h1>Anda telah menyelesaikan {quiz_id ? "QUIZ" : "GAME"}</h1>
           <h3>Skor anda:</h3>
-          <h2 style={{ fontSize: "15em", margin: 0 }}>{score}</h2>
+          <h2 style={{ fontSize: "11em", margin: 0 }}>{score}</h2>
           <div className="btn-bottom">
             <Button fullWidth variant="contained" onClick={() => redirect(-2)}>
               Kembali ke {quiz_id ? "Daftar Materi" : "Daftar Game"}

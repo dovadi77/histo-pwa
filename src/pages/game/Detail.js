@@ -6,16 +6,19 @@ import Skeleton from "react-loading-skeleton";
 import theme from "../../theme";
 import useAPI from "../../hooks/useAPI";
 import { getDataFromAPI } from "../../utils/API";
+import Leaderboard from "../../components/Leaderboard";
 import "react-loading-skeleton/dist/skeleton.css";
 
 const Detail = ({ setBack, setTitle, setToken, token }) => {
   const navigate = useNavigate();
-  const [material, setMaterial] = useState();
+  const [game, setGame] = useState();
+  const [rank, setRank] = useState();
+  const [userRank, setUserRank] = useState();
   const { response, setConfig } = useAPI();
   const { state } = useLocation();
 
   useEffect(() => {
-    setTitle("Pembelajaran");
+    setTitle("Games");
     setBack(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -26,9 +29,14 @@ const Detail = ({ setBack, setTitle, setToken, token }) => {
       if (response.message === "Unauthorized") {
         setToken(null);
       } else {
-        setTimeout(() => {
-          setMaterial(response.data);
-        }, 1000);
+        if (response.data.latest) {
+          setRank(response.data.latest);
+          setUserRank(response.data.additional);
+        } else {
+          setTimeout(() => {
+            setGame(response.data);
+          }, 1000);
+        }
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -36,33 +44,32 @@ const Detail = ({ setBack, setTitle, setToken, token }) => {
 
   // set parameter for API and call it
   useEffect(() => {
-    setConfig(getDataFromAPI(`material/${state.id}`, token));
+    setConfig(getDataFromAPI(`game/${state.id}`, token));
+    setTimeout(() => {
+      setConfig(getDataFromAPI(`game/${state.id}/leaderboard`, token));
+    }, 300);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setConfig, token]);
 
   const handleBtnPlay = () => {
-    if (material.score === undefined) navigate("/material/quiz", { state: state.id });
-    else navigate("/material/quiz/update", { state: state.id });
+    navigate("/games/play", { state: state.id });
   };
 
-  const Material = () => {
+  const Game = () => {
     return (
-      <div style={{ textAlign: "justify" }}>
-        <img alt="abc" src={material.banner} style={{ width: "100%" }} />
+      <div style={{ textAlign: "center" }}>
+        <Typography component="h1" variant="h4">
+          {`${game.title} (${game.type.toUpperCase()})`}
+        </Typography>
+        <Typography component="h3" variant="h5" sx={{ marginTop: theme.spacing(2) }}>
+          {`Batas waktu : ${game.max_time} menit`}
+        </Typography>
         <div style={{ marginTop: theme.spacing(4) }}>
-          <Typography component="h1" variant="h4">
-            {material.title}
-          </Typography>
-          <Typography sx={{ marginTop: theme.spacing(2) }}>{material.content}</Typography>
-          {material.score !== undefined && (
-            <Typography component={"h3"} variant={"h5"} sx={{ marginTop: theme.spacing(2) }}>
-              Skor terakhir : {material.score}
-            </Typography>
-          )}
+          <Leaderboard rows={rank} user={userRank} overflow={false} />
         </div>
         <div className="flex-center" style={{ margin: `${theme.spacing(4)} 0` }}>
-          <Button fullWidth variant="contained" onClick={() => handleBtnPlay()}>
-            {material.score !== undefined ? "Main Lagi" : "Bermain"}
+          <Button fullWidth variant="contained" onClick={() => handleBtnPlay()} disabled={game.user_answer ? true : false}>
+            {"Bermain"}
           </Button>
         </div>
       </div>
@@ -94,7 +101,7 @@ const Detail = ({ setBack, setTitle, setToken, token }) => {
         marginTop: "1em",
       }}
     >
-      {material ? <Material /> : <SkeletonLoad />}
+      {game ? <Game /> : <SkeletonLoad />}
     </Box>
   );
 };
