@@ -33,7 +33,8 @@ function SpeechToText({ content, answer, setToken, setTitle, title, url, quiz_id
 
   const handleClose = () => {
     setOpen(false);
-    resetTranscript();
+    sendAnswer();
+    reset();
   };
 
   const reset = () => {

@@ -19,18 +19,19 @@ const Answer = (props) => {
       let res = "";
       if (clickedAnswer !== null) {
         if (index === parseInt(props.correctAnswer)) {
-          res = "correct";
-        } else {
-          res = "incorrect";
+          res += "correct ";
         }
         if (index === clickedAnswer) {
-          res += " choosed";
+          res += "choosed ";
+          if (index !== parseInt(props.correctAnswer)) {
+            res += "incorrect ";
+          }
         }
       }
       return res;
     };
     return props.answer.map((choice, index) => (
-      <li className={answerClass(index)} onClick={() => checkAnswer(index)} key={choice}>
+      <li className={answerClass(index)} onClick={() => checkAnswer(index)} key={index}>
         {choice}
       </li>
     ));
@@ -41,7 +42,7 @@ const Answer = (props) => {
       <ul disabled={props.clickedAnswer ? true : false} className="Answer">
         <Choices />
       </ul>
-      <div>{clickedAnswer !== null ? (clickedAnswer === parseInt(props.correctAnswer) ? "Correct Answer!" : "Incorrect Answer!") : ""}</div>
+      <div>{clickedAnswer !== null ? (clickedAnswer === parseInt(props.correctAnswer) ? "Jawaban Benar!" : "Jawaban Salah!") : ""}</div>
     </>
   );
 };
