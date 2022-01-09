@@ -1,0 +1,19 @@
+.NextStep {
+  background-color: #009e00;
+  color: #fff;
+  padding: 10px 30px;
+  border: 0;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.NextStep:hover {
+  background-color: green;
+}
+.NextStep[disabled] {
+  display: none;
+}
+
+.Content {
+  width: 100%;
+}
