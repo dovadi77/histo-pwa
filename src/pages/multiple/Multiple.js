@@ -68,7 +68,7 @@ const Multiple = ({ content, answer, setToken, url, quiz_id, game_id, token, upd
     } else {
       data = {
         user_answer: userAnswer.join(","),
-        user_time: getUserTime() / 60,
+        user_time: getUserTime(),
       };
     }
     if (!update) setConfig(postDataToAPI(url, data, token));

@@ -26,7 +26,7 @@ export default function ProgressBar({ maxTime }) {
 
   React.useEffect(() => {
     const timer = setInterval(() => {
-      if (userTime / 60 > maxTime) clearInterval(timer);
+      if (userTime > maxTime) clearInterval(timer);
       increaseTime();
     }, 1000);
     return () => {
@@ -37,7 +37,7 @@ export default function ProgressBar({ maxTime }) {
 
   return (
     <Box sx={{ width: "100%", position: "fixed", bottom: 0, left: 0 }}>
-      <LinearProgress sx={{ height: 20 }} variant="determinate" value={normalize(userTime / 60)} />
+      <LinearProgress sx={{ height: 20 }} variant="determinate" value={normalize(userTime)} />
     </Box>
   );
 }

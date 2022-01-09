@@ -55,7 +55,7 @@ function SpeechToText({ content, answer, setToken, setTitle, title, url, quiz_id
     } else {
       data = {
         user_answer: transcript,
-        user_time: getUserTime() / 60,
+        user_time: getUserTime(),
       };
     }
     if (!update) setConfig(postDataToAPI(url, data, token));
