@@ -10,9 +10,9 @@ const Controller = () => {
   if (!token) {
     return (
       <Routes>
-        <Route path="/login" element={<Auth setToken={setToken} type="login" />} />
+        <Route path="/" element={<Auth setToken={setToken} type="login" />} />
         <Route path="/register" element={<Auth setToken={setToken} type="register" />} />
-        <Route path="*" element={<Navigate to="/login" />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     );
   } else {
