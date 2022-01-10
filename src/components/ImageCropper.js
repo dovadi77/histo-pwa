@@ -53,7 +53,7 @@ export default function ImageCropper() {
           resolve(blob);
         },
         "image/jpeg",
-        1
+        0.6
       );
     });
   };

@@ -1,6 +1,8 @@
 // This optional code is used to register a service worker.
 // register() is not called by default.
 
+import Swal from "sweetalert2";
+
 // This lets the app load faster on subsequent visits in production, and gives
 // it offline capabilities. However, it also means that developers (and users)
 // will only see deployed updates on subsequent visits to a page, after all the
@@ -39,7 +41,7 @@ export function register(config) {
         // Add some additional logging to localhost, pointing developers to the
         // service worker/PWA documentation.
         navigator.serviceWorker.ready.then(() => {
-          console.log("This web app is being served cache-first by a service " + "worker. To learn more, visit https://cra.link/PWA");
+          console.log("This web app is being served cache-first by a service worker. To learn more, visit https://cra.link/PWA");
         });
       } else {
         // Is not localhost. Just register service worker
@@ -53,6 +55,14 @@ function registerValidSW(swUrl, config) {
   navigator.serviceWorker
     .register(swUrl)
     .then((registration) => {
+      // Check for updates at start.
+      registration.update();
+      // Check for updates every 1 min.
+      setInterval(() => {
+        registration.update();
+        console.log("Checked for update...");
+      }, 1000 * 60 * 1);
+
       registration.onupdatefound = () => {
         const installingWorker = registration.installing;
         if (installingWorker == null) {
@@ -64,7 +74,17 @@ function registerValidSW(swUrl, config) {
               // At this point, the updated precached content has been fetched,
               // but the previous service worker will still serve the older
               // content until all client tabs are closed.
-              console.log("New content is available and will be used when all " + "tabs for this page are closed. See https://cra.link/PWA.");
+              console.log("New content is available and will be used when all tabs for this page are closed. See https://cra.link/PWA.");
+
+              Swal.fire({
+                title: "Terdapat Update Baru !",
+                text: "Silahkan update dengan menutup dan membuka kembali aplikasi ini",
+                icon: "info",
+                showConfirmButton: false,
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                allowEnterKey: false,
+              });
 
               // Execute callback
               if (config && config.onUpdate) {
