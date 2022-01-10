@@ -62,7 +62,7 @@ const Detail = ({ setBack, setTitle, setToken, token }) => {
           {`${game.title} (${game.type.toUpperCase()})`}
         </Typography>
         <Typography component="h3" variant="h5" sx={{ marginTop: theme.spacing(2) }}>
-          {`Batas waktu : ${game.max_time} menit`}
+          {`Batas waktu : ${game.max_time} detik`}
         </Typography>
         <div style={{ marginTop: theme.spacing(4) }}>
           <Leaderboard rows={rank} user={userRank} overflow={false} />

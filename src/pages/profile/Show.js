@@ -35,7 +35,7 @@ function Show({ user, setToken, setBack, setTitle }) {
               Ubah Profile
             </Button>
           </Box>
-          <Box>
+          {/* <Box>
             <h4>Penghargaan</h4>
             <Grid container spacing={1} justifyContent={"center"} style={{ textAlign: "center" }}>
               {user.achievements &&
@@ -48,7 +48,7 @@ function Show({ user, setToken, setBack, setTitle }) {
                   </Grid>
                 ))}
             </Grid>
-          </Box>
+          </Box> */}
           <Button fullWidth variant="outlined" size="small" sx={{ mt: 3, mb: 2 }} onClick={logout}>
             Keluar dari aplikasi
           </Button>
