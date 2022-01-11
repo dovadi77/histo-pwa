@@ -5,26 +5,24 @@ import theme from "./theme";
 import Controller from "./Controller";
 import { BrowserRouter } from "react-router-dom";
 import { SnackbarProvider } from "notistack";
+import Swal from "sweetalert2";
 
 function App() {
   useEffect(() => {
     function isStandalone() {
       return !!navigator.standalone || window.matchMedia("(display-mode: standalone)").matches;
     }
-    function exitsOnBack() {
-      let userAgent = navigator.userAgent.toLowerCase();
-      let isAndroid = userAgent.indexOf("android") > -1;
-      console.log(isAndroid);
-      return isStandalone() && isAndroid;
-    }
-
     window.addEventListener("popstate", () => {
       let path = window.location.pathname;
-      if (path === "/material" || path === "/") {
-        if (exitsOnBack()) {
+      console.log(path);
+      if (path === "/material") {
+        if (isStandalone()) {
           window.location.reload();
         }
       }
+    });
+    window.addEventListener("offline", () => {
+      Swal.fire("Tidak Ada Koneksi", "Mohon periksa koneksi internet anda !", "error");
     });
   }, []);
 

@@ -10,6 +10,9 @@ function Show({ user, setToken, setBack, setTitle }) {
   const logout = () => {
     setCookie("token", null, 0, true);
     setToken(null);
+    setTimeout(() => {
+      if (!!navigator.standalone || window.matchMedia("(display-mode: standalone)").matches) window.location.reload();
+    }, 500);
   };
 
   useEffect(() => {

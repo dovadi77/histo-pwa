@@ -101,7 +101,7 @@ function SpeechToText({ content, answer, setToken, setTitle, title, url, quiz_id
       <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
         <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">{content}</DialogContentText>
+          <DialogContentText id="alert-dialog-description">{content[0]}</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Lanjutkan</Button>
@@ -113,7 +113,7 @@ function SpeechToText({ content, answer, setToken, setTitle, title, url, quiz_id
             <Grid align="center">
               <h2>{title}</h2>
             </Grid>
-            <p>{answer}</p>
+            <p>{content[1]}</p>
           </Paper>
           <Paper elevation={0}>
             <div style={{ position: "relative", textAlign: "center" }}>
