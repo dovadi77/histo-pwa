@@ -43,6 +43,8 @@ const Home = ({ token, setToken }) => {
     } else if (value === 1) {
       setTitle("Game");
       navigate("/games");
+    } else {
+      navigate("/profile");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
@@ -61,8 +63,8 @@ const Home = ({ token, setToken }) => {
       </div>
       <Container sx={{ pb: back ? 1 : 7, pt: 7 }}>
         <Routes>
-          <Route path="/material/*" element={<LearnTab token={token} setBack={setGoBack} setTitle={setNewTitle} />} />
-          <Route path="/games/*" element={<GameTab token={token} setBack={setGoBack} setTitle={setNewTitle} />} />
+          <Route path="/material/*" element={<LearnTab token={token} setToken={setToken} setBack={setGoBack} setTitle={setNewTitle} />} />
+          <Route path="/games/*" element={<GameTab token={token} setToken={setToken} setBack={setGoBack} setTitle={setNewTitle} />} />
           <Route path="/profile/*" element={<ProfileTab token={token} setToken={setToken} setBack={setGoBack} setTitle={setNewTitle} />} />
           <Route path="*" element={<Navigate to="/material" />} />
         </Routes>
@@ -79,7 +81,7 @@ const Home = ({ token, setToken }) => {
         >
           <BottomNavigationAction label="Materi" icon={<LocalLibraryIcon />} />
           <BottomNavigationAction label="Permainan" icon={<SportsEsportsIcon />} />
-          <BottomNavigationAction label="Profile" icon={<AccountCircleIcon />} onClick={() => navigate("/profile/")} />
+          <BottomNavigationAction label="Profile" icon={<AccountCircleIcon />} />
         </BottomNavigation>
       </Paper>
     </Box>

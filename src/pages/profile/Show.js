@@ -50,7 +50,7 @@ function Show({ user, setToken, setBack, setTitle }) {
             </Grid>
           </Box> */}
           <Button fullWidth variant="outlined" size="small" sx={{ mt: 3, mb: 2 }} onClick={logout}>
-            Keluar dari aplikasi
+            Logout
           </Button>
         </Container>
       </div>
