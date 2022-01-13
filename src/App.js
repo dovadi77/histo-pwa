@@ -14,7 +14,6 @@ function App() {
     }
     window.addEventListener("popstate", () => {
       let path = window.location.pathname;
-      console.log(path);
       if (path === "/material") {
         if (isStandalone()) {
           window.location.reload();

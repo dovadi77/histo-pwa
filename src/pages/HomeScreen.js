@@ -1,12 +1,4 @@
-import {
-  AppBar,
-  BottomNavigation,
-  BottomNavigationAction,
-  Toolbar,
-  Typography,
-  Paper,
-  Container,
-} from "@mui/material";
+import { AppBar, BottomNavigation, BottomNavigationAction, Toolbar, Typography, Paper, Container } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState, useEffect } from "react";
 import LocalLibraryIcon from "@mui/icons-material/LocalLibrary";
@@ -32,9 +24,8 @@ const HomeScreen = ({ token, setToken }) => {
   useEffect(() => {
     if (response) {
       setUser(response.data);
-      console.log(user);
     }
-  }, [response, user]);
+  }, [response]);
 
   // set parameter for API and call it
   useEffect(() => {
@@ -60,11 +51,7 @@ const HomeScreen = ({ token, setToken }) => {
       <div className="navbar-container">
         <AppBar position="static" className="navbar">
           <Toolbar>
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{ textAlign: "center", flexGrow: 1 }}
-            >
+            <Typography variant="h6" component="div" sx={{ textAlign: "center", flexGrow: 1 }}>
               {title}
             </Typography>
           </Toolbar>
@@ -73,20 +60,9 @@ const HomeScreen = ({ token, setToken }) => {
       <Container sx={{ pb: 7, pt: 7 }}>
         <SnackbarProvider maxSnack={3}>
           <Routes>
-            <Route
-              index
-              element={<LearnTab setToken={setToken} token={token} />}
-            />
-            <Route
-              path="games"
-              element={<GameTab setToken={setToken} token={token} />}
-            />
-            <Route
-              path="profile"
-              element={
-                <ProfileTab setToken={setToken} token={token} user={user} />
-              }
-            />
+            <Route index element={<LearnTab setToken={setToken} token={token} />} />
+            <Route path="games" element={<GameTab setToken={setToken} token={token} />} />
+            <Route path="profile" element={<ProfileTab setToken={setToken} token={token} user={user} />} />
           </Routes>
         </SnackbarProvider>
       </Container>
@@ -100,14 +76,8 @@ const HomeScreen = ({ token, setToken }) => {
           }}
         >
           <BottomNavigationAction label="Materi" icon={<LocalLibraryIcon />} />
-          <BottomNavigationAction
-            label="Permainan"
-            icon={<SportsEsportsIcon />}
-          />
-          <BottomNavigationAction
-            label="Profile"
-            icon={<AccountCircleIcon />}
-          />
+          <BottomNavigationAction label="Permainan" icon={<SportsEsportsIcon />} />
+          <BottomNavigationAction label="Profile" icon={<AccountCircleIcon />} />
         </BottomNavigation>
       </Paper>
     </Box>

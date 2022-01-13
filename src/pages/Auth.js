@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { Link, Grid, Box, Typography, Button } from "@mui/material";
+import { Link, Grid, Box, Typography } from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
 import { useSnackbar } from "notistack";
 import Input from "../components/Input";
 import useAPI from "../hooks/useAPI";
 import Cookies from "../utils/Cookies";
+import Title from "../components/Title";
 
 function Copyright(props) {
   return (
@@ -36,6 +38,7 @@ const inputFieldList = {
 
 export default function Auth({ setToken, token, type }) {
   const [isValid, setIsValid] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { enqueueSnackbar } = useSnackbar();
 
@@ -87,6 +90,7 @@ export default function Auth({ setToken, token, type }) {
       if (data.email === "" || data.password === "") {
         snackbar("Email / Password tidak boleh kosong !!!");
       } else {
+        setLoading(true);
         setConfig(
           postDataToAPI("user/login", {
             email: data.email,
@@ -98,6 +102,7 @@ export default function Auth({ setToken, token, type }) {
       if (data.email === "" || data.password === "" || data.confirmPassword === "" || data.username === "") {
         snackbar("Nickname / Email / Password / Konfirmasi Password tidak boleh kosong !!!");
       } else {
+        setLoading(true);
         setConfig(
           postDataToAPI("user/register", {
             email: data.email,
@@ -114,9 +119,13 @@ export default function Auth({ setToken, token, type }) {
   useEffect(() => {
     const checkRes = (res) => {
       if (res.success) {
-        setToken(res.data.token);
+        setTimeout(() => {
+          setToken(res.data.token);
+          setLoading(false);
+        }, 3000);
       } else {
         snackbar(res.message);
+        setLoading(false);
       }
     };
     if (response) {
@@ -134,22 +143,7 @@ export default function Auth({ setToken, token, type }) {
           alignItems: "center",
         }}
       >
-        <div
-          className="centerTitle"
-          style={{
-            height: type === "login" ? "30vh" : "18vh",
-            justifyContent: type === "login" ? "center" : "flex-end",
-          }}
-        >
-          <Typography component="h1" variant="h1" fontWeight="800">
-            HISTO
-          </Typography>
-          <div style={{ transform: "translate(0,-1em)" }}>
-            <Typography component="h2" variant="h4">
-              Jasmerah
-            </Typography>
-          </div>
-        </div>
+        <Title type={type} />
         <div className="userForm" style={{ height: type === "login" ? "70vh" : "82vh" }}>
           <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1, px: 6 }}>
             <div style={{ textAlign: "center", margin: "2em 0" }}>
@@ -163,9 +157,9 @@ export default function Auth({ setToken, token, type }) {
             {inputFieldList[type].map((input) => {
               return <Input key={input[0]} input={input} type={type} setValid={setIsValid} />;
             })}
-            <Button type="submit" fullWidth variant="contained" size="large" sx={{ mt: 3, mb: 2 }} disabled={isValid ? false : true}>
+            <LoadingButton loading={loading} type="submit" fullWidth variant="contained" size="large" sx={{ mt: 3, mb: 2 }} disabled={isValid ? false : true}>
               {type === "login" ? "Masuk >" : "Daftar >"}
-            </Button>
+            </LoadingButton>
             <Grid container direction="row" justifyContent="center" alignItems="center">
               <Grid item>
                 <Link variant="body2" onClick={() => navigate(`${type === "login" ? "/register" : "/login"}`)}>

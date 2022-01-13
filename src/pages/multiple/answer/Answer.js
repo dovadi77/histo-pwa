@@ -39,7 +39,7 @@ const Answer = (props) => {
 
   return (
     <>
-      <ul disabled={props.clickedAnswer ? true : false} className="Answer">
+      <ul disabled={clickedAnswer !== null ? true : false} className="Answer">
         <Choices />
       </ul>
       <div>{clickedAnswer !== null ? (clickedAnswer === parseInt(props.correctAnswer) ? "Jawaban Benar!" : "Jawaban Salah!") : ""}</div>

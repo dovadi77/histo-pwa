@@ -12,7 +12,7 @@ import ProgressBar from "../../components/ProgressBar";
 
 function SpeechToText({ content, answer, setToken, setTitle, title, url, quiz_id, game_id, token, update, maxTime }) {
   const [open, setOpen] = React.useState(false);
-  const [isRunning, setRunning] = React.useState(false);
+  const [word, setWord] = React.useState("");
   const [score, setScore] = React.useState(null);
   const { response, setConfig } = useAPI();
   const navigate = useNavigate();
@@ -24,7 +24,7 @@ function SpeechToText({ content, answer, setToken, setTitle, title, url, quiz_id
       callback: () => handleClickOpen(),
     },
   ];
-  const { transcript, resetTranscript } = useSpeechRecognition({ commands });
+  const { transcript, resetTranscript, listening } = useSpeechRecognition({ commands });
 
   //MARK: -Show or Hidden  PopUp
   const handleClickOpen = () => {
@@ -38,10 +38,10 @@ function SpeechToText({ content, answer, setToken, setTitle, title, url, quiz_id
   };
 
   const reset = () => {
-    setRunning(false);
     SpeechRecognition.stopListening();
     setTimeout(() => {
       resetTranscript();
+      setWord("");
     }, 100);
   };
 
@@ -50,11 +50,11 @@ function SpeechToText({ content, answer, setToken, setTitle, title, url, quiz_id
     if (quiz_id) {
       data = {
         quiz_id,
-        user_answer: transcript,
+        user_answer: word,
       };
     } else {
       data = {
-        user_answer: transcript,
+        user_answer: word,
         user_time: getUserTime(),
       };
     }
@@ -62,24 +62,31 @@ function SpeechToText({ content, answer, setToken, setTitle, title, url, quiz_id
     else setConfig(updateDataToAPI(url, data, token));
   };
 
+  const startListening = () => {
+    SpeechRecognition.startListening({
+      language: "id",
+    });
+  };
+
+  const stopListening = () => {
+    SpeechRecognition.stopListening();
+  };
+
   const redirect = (val) => {
     navigate(val);
   };
 
   useEffect(() => {
-    setTitle("Bacakan Teks ini!");
-  });
+    if (!listening && transcript.length > 0) {
+      setWord((old) => {
+        return old + (old.length === 0 ? "" : " ") + transcript;
+      });
+    }
+  }, [listening, transcript]);
 
   useEffect(() => {
-    if (isRunning) {
-      SpeechRecognition.startListening({
-        continuous: true,
-        language: "id",
-      });
-    } else if (!isRunning) {
-      SpeechRecognition.stopListening();
-    }
-  }, [isRunning]);
+    setTitle("Bacakan Teks ini!");
+  });
 
   // get data
   useEffect(() => {
@@ -93,12 +100,9 @@ function SpeechToText({ content, answer, setToken, setTitle, title, url, quiz_id
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response, setToken]);
 
-  if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
-    return null;
-  }
   return (
     <div className="content">
-      <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
+      <Dialog open={open || word === answer} onClose={handleClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
         <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">{content[0]}</DialogContentText>
@@ -107,58 +111,62 @@ function SpeechToText({ content, answer, setToken, setTitle, title, url, quiz_id
           <Button onClick={handleClose}>Lanjutkan</Button>
         </DialogActions>
       </Dialog>
-      {score === null ? (
-        <Box>
-          <Paper elevation={0}>
-            <Grid align="center">
-              <h2>{title}</h2>
-            </Grid>
-            <p>{content[1]}</p>
-          </Paper>
-          <Paper elevation={0}>
-            <div style={{ position: "relative", textAlign: "center" }}>
-              <h2>Hasil Input</h2>
-              <div style={{ position: "absolute", top: 0, right: 0 }}>
-                <Button onClick={reset} color="primary" variant="text" sx={{ borderRadius: "50%" }}>
-                  <DeleteIcon />
-                </Button>
+      {SpeechRecognition.browserSupportsSpeechRecognition() ? (
+        score === null ? (
+          <Box>
+            <Paper elevation={0}>
+              <Grid align="center">
+                <h2>{title}</h2>
+              </Grid>
+              <p>{content[1]}</p>
+            </Paper>
+            <Paper elevation={0}>
+              <div style={{ position: "relative", textAlign: "center" }}>
+                <h2>Hasil Input</h2>
+                <div style={{ position: "absolute", top: 0, right: 0 }}>
+                  <Button onClick={reset} color="primary" variant="text" sx={{ borderRadius: "50%" }}>
+                    <DeleteIcon />
+                  </Button>
+                </div>
+                <div style={{ position: "absolute", top: 0, left: 0 }}>
+                  <Button onClick={sendAnswer} color="primary" variant="text" sx={{ borderRadius: "50%" }} disabled={word.length === 0 || listening}>
+                    <ManageSearchIcon />
+                  </Button>
+                </div>
               </div>
-              <div style={{ position: "absolute", top: 0, left: 0 }}>
-                <Button onClick={sendAnswer} color="primary" variant="text" sx={{ borderRadius: "50%" }} disabled={transcript.length === 0 || isRunning}>
-                  <ManageSearchIcon />
-                </Button>
+              <div className="voice-input">
+                <p>{listening ? word + (word.length === 0 ? "" : " ") + transcript : word}</p>
               </div>
+            </Paper>
+            <Button
+              onClick={() => {
+                listening ? stopListening() : startListening();
+              }}
+              color="primary"
+              variant="contained"
+              fullWidth
+              sx={{ marginBottom: "1em" }}
+            >
+              {listening ? "Stop" : "Mulai"}
+            </Button>
+            {!quiz_id && <ProgressBar maxTime={maxTime} />}
+          </Box>
+        ) : (
+          <div className="finalPage">
+            <h1>Anda telah menyelesaikan {quiz_id ? "QUIZ" : "GAME"}</h1>
+            <h3>Skor anda:</h3>
+            <h2 style={{ fontSize: "11em", margin: 0 }}>{score}</h2>
+            <div className="btn-bottom">
+              <Button fullWidth variant="contained" onClick={() => redirect(-2)}>
+                Kembali ke {quiz_id ? "Daftar Materi" : "Daftar Game"}
+              </Button>
             </div>
-            <div className="voice-input">
-              <p>{transcript}</p>
-            </div>
-          </Paper>
-          <Button
-            onClick={() => setRunning(true)}
-            color="primary"
-            variant="contained"
-            fullWidth
-            sx={{ display: isRunning ? "none" : "inherit", marginBottom: "1em" }}
-          >
-            Mulai
-          </Button>
-          <Button
-            fullWidth
-            onClick={() => setRunning(false)}
-            type="submit"
-            color="primary"
-            variant="contained"
-            sx={{ display: !isRunning ? "none" : "inherit", marginBottom: "1em" }}
-          >
-            Stop
-          </Button>
-          {!quiz_id && <ProgressBar maxTime={maxTime} />}
-        </Box>
+          </div>
+        )
       ) : (
         <div className="finalPage">
-          <h1>Anda telah menyelesaikan {quiz_id ? "QUIZ" : "GAME"}</h1>
-          <h3>Skor anda:</h3>
-          <h2 style={{ fontSize: "11em", margin: 0 }}>{score}</h2>
+          <h1>Ups terdapat kesalahan</h1>
+          <h3>Agar bisa memainkan permainan ini mohon untuk memberikan akses mic anda</h3>
           <div className="btn-bottom">
             <Button fullWidth variant="contained" onClick={() => redirect(-2)}>
               Kembali ke {quiz_id ? "Daftar Materi" : "Daftar Game"}
