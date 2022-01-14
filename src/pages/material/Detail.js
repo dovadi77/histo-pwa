@@ -3,6 +3,8 @@ import { Box } from "@mui/system";
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
 import Skeleton from "react-loading-skeleton";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import theme from "../../theme";
 import useAPI from "../../hooks/useAPI";
 import { getDataFromAPI } from "../../utils/API";
@@ -53,7 +55,9 @@ const Detail = ({ setBack, setTitle, setToken, token }) => {
           <Typography component="h1" variant="h4">
             {material.title}
           </Typography>
-          <Typography sx={{ marginTop: theme.spacing(2) }}>{material.content}</Typography>
+          <div style={{ marginTop: theme.spacing(2) }}>
+            <ReactMarkdown children={material.content} remarkPlugins={[remarkGfm]} />
+          </div>
           {material.score !== undefined && (
             <Typography component={"h3"} variant={"h5"} sx={{ marginTop: theme.spacing(2) }}>
               Skor terakhir : {material.score}
