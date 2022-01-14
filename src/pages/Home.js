@@ -54,7 +54,11 @@ const Home = ({ token, setToken }) => {
       <div className="navbar-container">
         <AppBar position="static" className="navbar">
           <Toolbar>
-            {back && <div onClick={() => navigate(-1)}>{"<"}</div>}
+            {back && (
+              <div style={{ cursor: "pointer" }} onClick={() => navigate(-1)}>
+                {"<"}
+              </div>
+            )}
             <Typography variant="h6" component="div" sx={{ textAlign: "center", flexGrow: 1 }}>
               {title}
             </Typography>

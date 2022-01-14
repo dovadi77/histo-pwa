@@ -116,6 +116,11 @@ export default function Auth({ setToken, token, type }) {
     }
   };
 
+  const redirecting = (e) => {
+    e.preventDefault();
+    navigate(`${type === "login" ? "/register" : "/login"}`);
+  };
+
   useEffect(() => {
     const checkRes = (res) => {
       if (res.success) {
@@ -162,7 +167,7 @@ export default function Auth({ setToken, token, type }) {
             </LoadingButton>
             <Grid container direction="row" justifyContent="center" alignItems="center">
               <Grid item>
-                <Link variant="body2" onClick={() => navigate(`${type === "login" ? "/register" : "/login"}`)}>
+                <Link variant="body2" href="#" onClick={redirecting}>
                   {type === "login" ? "Belum memiliki akun? Daftar" : "Sudah memiliki akun? Masuk"}
                 </Link>
               </Grid>

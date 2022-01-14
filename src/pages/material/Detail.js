@@ -49,13 +49,13 @@ const Detail = ({ setBack, setTitle, setToken, token }) => {
 
   const Material = () => {
     return (
-      <div style={{ textAlign: "justify" }}>
+      <div>
         <img alt="abc" src={material.banner} style={{ width: "100%" }} />
         <div style={{ marginTop: theme.spacing(4) }}>
-          <Typography component="h1" variant="h4">
+          <Typography component="h1" variant="h4" align="center">
             {material.title}
           </Typography>
-          <div style={{ marginTop: theme.spacing(2) }}>
+          <div style={{ marginTop: theme.spacing(2), textAlign: "justify" }}>
             <ReactMarkdown children={material.content} remarkPlugins={[remarkGfm]} />
           </div>
           {material.score !== undefined && (
