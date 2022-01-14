@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import { Button, Grid, Paper, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
+import { Button, Grid, Paper, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton } from "@mui/material";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import DeleteIcon from "@mui/icons-material/Delete";
-import ManageSearchIcon from "@mui/icons-material/ManageSearch";
+import InfoIcon from "@mui/icons-material/Info";
 import { Box } from "@mui/system";
 import useAPI from "../../hooks/useAPI";
 import { postDataToAPI, updateDataToAPI } from "../../utils/API";
@@ -17,14 +17,7 @@ function SpeechToText({ content, answer, setToken, setTitle, title, url, quiz_id
   const { response, setConfig } = useAPI();
   const navigate = useNavigate();
 
-  //MARK: -Command Speech Recognition
-  const commands = [
-    {
-      command: answer,
-      callback: () => handleClickOpen(),
-    },
-  ];
-  const { transcript, resetTranscript, listening } = useSpeechRecognition({ commands });
+  const { transcript, resetTranscript, listening } = useSpeechRecognition();
 
   //MARK: -Show or Hidden  PopUp
   const handleClickOpen = () => {
@@ -33,8 +26,6 @@ function SpeechToText({ content, answer, setToken, setTitle, title, url, quiz_id
 
   const handleClose = () => {
     setOpen(false);
-    sendAnswer();
-    reset();
   };
 
   const reset = () => {
@@ -108,7 +99,7 @@ function SpeechToText({ content, answer, setToken, setTitle, title, url, quiz_id
           <DialogContentText id="alert-dialog-description">{content[0]}</DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Lanjutkan</Button>
+          <Button onClick={handleClose}>Tutup</Button>
         </DialogActions>
       </Dialog>
       {SpeechRecognition.browserSupportsSpeechRecognition() ? (
@@ -124,14 +115,14 @@ function SpeechToText({ content, answer, setToken, setTitle, title, url, quiz_id
               <div style={{ position: "relative", textAlign: "center" }}>
                 <h2>Hasil Input</h2>
                 <div style={{ position: "absolute", top: 0, right: 0 }}>
-                  <Button onClick={reset} color="primary" variant="text" sx={{ borderRadius: "50%" }}>
+                  <IconButton onClick={reset} color="primary" variant="text">
                     <DeleteIcon />
-                  </Button>
+                  </IconButton>
                 </div>
                 <div style={{ position: "absolute", top: 0, left: 0 }}>
-                  <Button onClick={sendAnswer} color="primary" variant="text" sx={{ borderRadius: "50%" }} disabled={word.length === 0 || listening}>
-                    <ManageSearchIcon />
-                  </Button>
+                  <IconButton onClick={handleClickOpen} color="primary" variant="text">
+                    <InfoIcon />
+                  </IconButton>
                 </div>
               </div>
               <div className="voice-input">
@@ -142,12 +133,15 @@ function SpeechToText({ content, answer, setToken, setTitle, title, url, quiz_id
               onClick={() => {
                 listening ? stopListening() : startListening();
               }}
-              color="primary"
+              color="secondary"
               variant="contained"
               fullWidth
               sx={{ marginBottom: "1em" }}
             >
               {listening ? "Stop" : "Mulai"}
+            </Button>
+            <Button color="primary" variant="contained" sx={{ marginBottom: "1em" }} onClick={sendAnswer} fullWidth disabled={word.length === 0 || listening}>
+              Cek Jawaban
             </Button>
             {!quiz_id && <ProgressBar maxTime={maxTime} />}
           </Box>
