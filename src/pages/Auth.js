@@ -122,7 +122,7 @@ export default function Auth({ setToken, token, type }) {
         setTimeout(() => {
           setToken(res.data.token);
           setLoading(false);
-        }, 3000);
+        }, 1000);
       } else {
         snackbar(res.message);
         setLoading(false);
