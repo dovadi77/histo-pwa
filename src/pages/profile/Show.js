@@ -25,7 +25,7 @@ function Show({ user, setToken, setBack, setTitle }) {
     <>
       <div className="profile-img">
         <Paper elevation={3} className="profile-img-container">
-          <img className="img-fluid" alt="Profile" src={user.image + "?" + Date.now()} />
+          <img className="img-fluid" alt="Profile" src={user.image !== undefined ? user.image + "?" + Date.now() : `https://via.placeholder.com/150`} />
         </Paper>
       </div>
       <div style={{ padding: "7vh 0 2vh 0" }}>
