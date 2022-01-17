@@ -133,12 +133,12 @@ function SpeechToText({ content, answer, setToken, setTitle, title, url, quiz_id
               onClick={() => {
                 listening ? stopListening() : startListening();
               }}
-              color="secondary"
+              color={listening ? "error" : "success"}
               variant="contained"
               fullWidth
               sx={{ marginBottom: "1em" }}
             >
-              {listening ? "Stop" : "Mulai"}
+              {listening ? "Stop Berbicara" : "Mulai Berbicara"}
             </Button>
             <Button color="primary" variant="contained" sx={{ marginBottom: "1em" }} onClick={sendAnswer} fullWidth disabled={word.length === 0 || listening}>
               Cek Jawaban

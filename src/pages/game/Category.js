@@ -26,7 +26,7 @@ const Category = ({ setTitle, setBack }) => {
     return (
       <Card style={{ margin: `${theme.spacing(4)} 0` }}>
         <CardActionArea>
-          <Box className="material-filter" onClick={() => navigate("rank", { state: [item.id, item.title] })}>
+          <Box className="material-filter category-filter" onClick={() => navigate("rank", { state: [item.id, item.title] })}>
             <Typography variant="h3" color="rgb(0,0,0)" textAlign={"center"} sx={{ margin: "0 0.5em", fontWeight: 600 }}>
               {item.title.toUpperCase()}
             </Typography>
