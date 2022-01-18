@@ -61,7 +61,7 @@ export default function Input({ input, setValid, type, oldValue = "" }) {
         setError(null);
         setValid(true);
       } else {
-        setError("Nickname harus diisi, minimal 4 karakter");
+        setError("Nama Pengguna harus diisi, minimal 4 karakter");
         setValid(false);
       }
     }

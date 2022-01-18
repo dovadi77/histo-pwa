@@ -11,7 +11,7 @@ import ImageCropper, { getCroppedImage } from "../../components/ImageCropper";
 
 const forms = [
   ["name", "Nama", "text", false],
-  ["username", "Nickname", "text"],
+  ["username", "Nama Panggilan", "text"],
 ];
 
 function Update({ user, setToken, setBack, setTitle, setUpdateUser, token }) {
@@ -38,7 +38,7 @@ function Update({ user, setToken, setBack, setTitle, setUpdateUser, token }) {
     event.preventDefault();
     const data = Object.fromEntries(new FormData(event.currentTarget));
     if (data.username === "") {
-      snackbar("Nickname tidak boleh kosong !!!");
+      snackbar("Nama Pengguna tidak boleh kosong !!!");
     } else {
       setConfig(
         updateDataToAPI(
@@ -85,7 +85,7 @@ function Update({ user, setToken, setBack, setTitle, setUpdateUser, token }) {
   return (
     <>
       <div className="profile-img">
-        <Paper elevation={3} className="profile-img-container" onClick={() => openModal("Ubah foto profile", <ImageCropper />, true, saveImage)}>
+        <Paper elevation={3} className="profile-img-container" onClick={() => openModal("Ubah foto profil", <ImageCropper />, true, saveImage)}>
           <img className="img-fluid" alt="Profile" src={user.image + "?" + Date.now()} />
           <Box
             sx={{

@@ -113,7 +113,7 @@ function SpeechToText({ content, answer, setToken, setTitle, title, url, quiz_id
             </Paper>
             <Paper elevation={0}>
               <div style={{ position: "relative", textAlign: "center" }}>
-                <h2>Hasil Input</h2>
+                <h2>Hasil Input Suara</h2>
                 <div style={{ position: "absolute", top: 0, right: 0 }}>
                   <IconButton onClick={reset} color="primary" variant="text">
                     <DeleteIcon />

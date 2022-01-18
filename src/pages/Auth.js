@@ -29,7 +29,7 @@ const inputFieldList = {
   ],
   register: [
     ["name", "Nama", "text", false],
-    ["username", "Nickname", "text"],
+    ["username", "Nama Pengguna", "text"],
     ["email", "Email", "email"],
     ["password", "Password", "password"],
     ["confirm_password", "Konfirmasi Password", "password"],
@@ -100,7 +100,7 @@ export default function Auth({ setToken, token, type }) {
       }
     } else {
       if (data.email === "" || data.password === "" || data.confirmPassword === "" || data.username === "") {
-        snackbar("Nickname / Email / Password / Konfirmasi Password tidak boleh kosong !!!");
+        snackbar("Nama Pengguna / Email / Password / Konfirmasi Password tidak boleh kosong !!!");
       } else {
         setLoading(true);
         setConfig(

@@ -32,10 +32,10 @@ function Show({ user, setToken, setBack, setTitle }) {
         <Container>
           <Box>
             <TextField margin="normal" fullWidth id="name" label="Nama" name="name" type="text" value={user.name ?? "-"} disabled />
-            <TextField margin="normal" fullWidth id="username" label="Nickname" name="username" type="text" value={user.username ?? "-"} disabled />
+            <TextField margin="normal" fullWidth id="username" label="Nama Panggilan" name="username" type="text" value={user.username ?? "-"} disabled />
             <TextField margin="normal" fullWidth id="email" label="Email" name="email" type="email" value={user.email ?? "-"} disabled />
             <Button fullWidth variant="contained" size="large" sx={{ mt: 3, mb: 2 }} onClick={() => navigate("update")}>
-              Ubah Profile
+              Ubah Profil
             </Button>
           </Box>
           {/* <Box>
@@ -53,7 +53,7 @@ function Show({ user, setToken, setBack, setTitle }) {
             </Grid>
           </Box> */}
           <Button fullWidth variant="outlined" size="small" sx={{ mt: 3, mb: 2 }} onClick={logout}>
-            Logout
+            Keluar
           </Button>
         </Container>
       </div>

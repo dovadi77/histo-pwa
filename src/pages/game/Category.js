@@ -10,13 +10,13 @@ import "react-loading-skeleton/dist/skeleton.css";
 const Category = ({ setTitle, setBack }) => {
   const navigate = useNavigate();
   const category = [
-    { id: "easy", title: "mudah", color: "green" },
-    { id: "medium", title: "sedang", color: "yellow" },
-    { id: "hard", title: "sulit", color: "red" },
+    { id: "easy", title: "mudah", color: "rgba(0,0,0,0)", fontColor: "rgb(0,0,0)", border: "2px solid #000" },
+    { id: "medium", title: "sedang", color: "#363636", fontColor: "#FBFAFC" },
+    { id: "hard", title: "sulit", color: "#ee6767", fontColor: "rgb(0,0,0)" },
   ];
 
   useEffect(() => {
-    setTitle("Games");
+    setTitle("Permainan");
     setBack(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -24,14 +24,14 @@ const Category = ({ setTitle, setBack }) => {
   const ItemLearn = (item) => {
     item = item.item;
     return (
-      <Card style={{ margin: `${theme.spacing(4)} 0` }}>
+      <Card style={{ margin: `${theme.spacing(4)} 0`, borderRadius: "30px" }}>
         <CardActionArea>
           <Box className="material-filter category-filter" onClick={() => navigate("rank", { state: [item.id, item.title] })}>
-            <Typography variant="h3" color="rgb(0,0,0)" textAlign={"center"} sx={{ margin: "0 0.5em", fontWeight: 600 }}>
+            <Typography variant="h3" color={item.fontColor} textAlign={"center"} sx={{ margin: "0 0.5em", fontWeight: 600 }}>
               {item.title.toUpperCase()}
             </Typography>
           </Box>
-          <div style={{ height: "160px", backgroundColor: item.color }}></div>
+          <div style={{ height: "160px", backgroundColor: item.color, border: item.border !== undefined ? item.border : "none", borderRadius: "30px" }}></div>
         </CardActionArea>
       </Card>
     );
@@ -40,7 +40,7 @@ const Category = ({ setTitle, setBack }) => {
   const SkeletonLoad = () => {
     return (
       <div style={{ margin: `${theme.spacing(4)} 0` }}>
-        <div style={{ height: "160px" }}>
+        <div style={{ height: "160px", borderRadius: "60px" }}>
           <Skeleton height={160} />
         </div>
       </div>

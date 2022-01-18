@@ -80,10 +80,10 @@ export default function Modal() {
         <DialogContent dividers>{BodyEl}</DialogContent>
         <DialogActions>
           <Button variant="contained" autoFocus onClick={onClick} disabled={onClick && false}>
-            Save
+            Simpan
           </Button>
           <Button autoFocus onClick={close}>
-            Close
+            Batal
           </Button>
         </DialogActions>
       </BootstrapDialog>

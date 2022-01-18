@@ -93,7 +93,7 @@ export default function ImageCropper() {
         <label htmlFor="contained-button-file">
           <Input accept="image/*" id="contained-button-file" type="file" onChange={onSelectFile} />
           <Button fullWidth variant="contained" component="span" endIcon={<PhotoCamera />} style={{ marginBottom: "1em" }}>
-            Upload
+            Unggah
           </Button>
         </label>
       </div>

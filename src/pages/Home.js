@@ -85,7 +85,7 @@ const Home = ({ token, setToken }) => {
         >
           <BottomNavigationAction label="Materi" icon={<LocalLibraryIcon />} />
           <BottomNavigationAction label="Permainan" icon={<SportsEsportsIcon />} />
-          <BottomNavigationAction label="Profile" icon={<AccountCircleIcon />} />
+          <BottomNavigationAction label="Profil" icon={<AccountCircleIcon />} />
         </BottomNavigation>
       </Paper>
     </Box>
