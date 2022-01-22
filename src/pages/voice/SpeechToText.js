@@ -10,7 +10,7 @@ import { useNavigate } from "react-router";
 import { getUserTime } from "../../components/ProgressBar";
 import ProgressBar from "../../components/ProgressBar";
 
-function SpeechToText({ content, answer, setToken, setTitle, title, url, quiz_id, game_id, token, update, maxTime }) {
+function SpeechToText({ content, answer, setToken, title, url, quiz_id, token, update, maxTime }) {
   const [open, setOpen] = React.useState(false);
   const [word, setWord] = React.useState("");
   const [score, setScore] = React.useState(null);
@@ -74,10 +74,6 @@ function SpeechToText({ content, answer, setToken, setTitle, title, url, quiz_id
       });
     }
   }, [listening, transcript]);
-
-  useEffect(() => {
-    setTitle("Bacakan Teks ini!");
-  });
 
   // get data
   useEffect(() => {

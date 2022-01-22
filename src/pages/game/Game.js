@@ -24,7 +24,6 @@ const Game = ({ setBack, setTitle, setToken, token, update }) => {
             game_id={game.id}
             url={`game/${game.id}`}
             update={update}
-            setTitle={setTitle}
             maxTime={game.max_time}
           />
         );
@@ -39,7 +38,6 @@ const Game = ({ setBack, setTitle, setToken, token, update }) => {
             game_id={game.id}
             url={`game/${game.id}`}
             update={update}
-            setTitle={setTitle}
             maxTime={game.max_time}
           />
         );
@@ -59,7 +57,7 @@ const Game = ({ setBack, setTitle, setToken, token, update }) => {
   };
 
   useEffect(() => {
-    setTitle("Jawab Soal Berikut!");
+    setTitle(game.title === undefined ? "Jawab Soal Berikut!" : game.title);
     setBack(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

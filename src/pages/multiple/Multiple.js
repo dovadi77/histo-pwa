@@ -16,7 +16,7 @@ const useMultiple = create((set) => ({
   score: 0,
 }));
 
-const Multiple = ({ content, answer, setToken, url, quiz_id, game_id, token, update, maxTime }) => {
+const Multiple = ({ content, answer, setToken, url, quiz_id, token, update, maxTime }) => {
   const correctAnswers = answer.split(",");
   const { userAnswer, step, score } = useMultiple();
   const { response, setConfig } = useAPI();

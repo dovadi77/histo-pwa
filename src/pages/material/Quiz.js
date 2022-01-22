@@ -35,7 +35,6 @@ const Quiz = ({ setBack, setTitle, setToken, token, update }) => {
             quiz_id={quiz.id}
             url={`material/${quiz.material_id}/quiz`}
             update={update}
-            setTitle={setTitle}
           />
         );
       }
@@ -44,7 +43,7 @@ const Quiz = ({ setBack, setTitle, setToken, token, update }) => {
   };
 
   useEffect(() => {
-    setTitle("Jawab Soal Berikut!");
+    setTitle(quiz.title === undefined ? "Jawab Soal Berikut!" : quiz.title);
     setBack(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
