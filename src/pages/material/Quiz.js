@@ -43,7 +43,6 @@ const Quiz = ({ setBack, setTitle, setToken, token, update }) => {
   };
 
   useEffect(() => {
-    setTitle(quiz.title === undefined ? "Jawab Soal Berikut!" : quiz.title);
     setBack(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -55,6 +54,7 @@ const Quiz = ({ setBack, setTitle, setToken, token, update }) => {
         setToken(null);
       } else {
         setQuiz(response.data);
+        setTitle(response.data.title);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

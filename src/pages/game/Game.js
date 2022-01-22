@@ -57,7 +57,6 @@ const Game = ({ setBack, setTitle, setToken, token, update }) => {
   };
 
   useEffect(() => {
-    setTitle(game.title === undefined ? "Jawab Soal Berikut!" : game.title);
     setBack(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -69,6 +68,7 @@ const Game = ({ setBack, setTitle, setToken, token, update }) => {
         setToken(null);
       } else {
         setGame(response.data);
+        setTitle(response.data.title);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
