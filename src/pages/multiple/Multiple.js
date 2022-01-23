@@ -101,12 +101,12 @@ const Multiple = ({ content, answer, setToken, url, quiz_id, token, update, maxT
         </>
       ) : (
         <div className="finalPage">
-          <h1>Anda telah menyelesaikan {quiz_id ? "QUIZ" : "GAME"}</h1>
+          <h1>Anda telah menyelesaikan {quiz_id ? "KUIS" : "PERMAINAN"}</h1>
           <h3>Skor anda:</h3>
           <h2 style={{ fontSize: "11em", margin: 0 }}>{score}</h2>
           <div className="btn-bottom">
             <Button fullWidth variant="contained" onClick={redirect}>
-              Kembali ke {quiz_id ? "Daftar Materi" : "Daftar Game"}
+              Kembali ke {quiz_id ? "Daftar Materi" : "Daftar Permainan"}
             </Button>
           </div>
         </div>

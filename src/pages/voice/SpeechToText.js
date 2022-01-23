@@ -143,12 +143,12 @@ function SpeechToText({ content, answer, setToken, title, url, quiz_id, token, u
           </Box>
         ) : (
           <div className="finalPage">
-            <h1>Anda telah menyelesaikan {quiz_id ? "QUIZ" : "GAME"}</h1>
+            <h1>Anda telah menyelesaikan {quiz_id ? "KUIS" : "PERMAINAN"}</h1>
             <h3>Skor anda:</h3>
             <h2 style={{ fontSize: "11em", margin: 0 }}>{score}</h2>
             <div className="btn-bottom">
               <Button fullWidth variant="contained" onClick={() => redirect(-2)}>
-                Kembali ke {quiz_id ? "Daftar Materi" : "Daftar Game"}
+                Kembali ke {quiz_id ? "Daftar Materi" : "Daftar Permainan"}
               </Button>
             </div>
           </div>
@@ -159,7 +159,7 @@ function SpeechToText({ content, answer, setToken, title, url, quiz_id, token, u
           <h3>Agar bisa memainkan permainan ini mohon untuk memberikan akses mic anda</h3>
           <div className="btn-bottom">
             <Button fullWidth variant="contained" onClick={() => redirect(-2)}>
-              Kembali ke {quiz_id ? "Daftar Materi" : "Daftar Game"}
+              Kembali ke {quiz_id ? "Daftar Materi" : "Daftar Permainan"}
             </Button>
           </div>
         </div>
