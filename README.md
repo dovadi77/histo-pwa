@@ -1,5 +1,5 @@
 # About this REPO
-This repo solely purpose for our Thesis
+This repo solely purpose for our Thesis, this link for the app demo [HISTO](https://histo.dovadi.my.id)
 
 ## Getting Started with Create React App
 
